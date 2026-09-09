@@ -385,7 +385,6 @@ body.nav-open .hamburger::after {
   line-height: 1.7;
 }
 
-.hero-buttons,
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
@@ -741,39 +740,6 @@ body.nav-open .hamburger::after {
   padding: 80px 0;
 }
 
-.resource-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  padding: 28px 24px;
-  transition: border-color var(--transition), transform var(--transition);
-}
-
-.resource-card:hover {
-  border-color: var(--accent-orange);
-  transform: translateY(-4px);
-}
-
-.resource-card h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-white);
-  margin-bottom: 8px;
-}
-
-.resource-card p {
-  font-size: 0.9rem;
-  color: var(--text-body);
-  line-height: 1.6;
-}
-
-.resource-card a {
-  display: inline-block;
-  margin-top: 12px;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
 /* ============================================
    Newsletter
    ============================================ */
@@ -905,7 +871,8 @@ body.nav-open .hamburger::after {
   transition: color var(--transition);
 }
 
-.footer-nav a:hover {
+.footer-nav a:hover,
+.footer-nav a[aria-current="page"] {
   color: var(--accent-orange);
 }
 
@@ -1128,8 +1095,7 @@ body.nav-open .hamburger::after {
 
   .trade-card,
   .reason-card,
-  .step-card,
-  .resource-card {
+  .step-card {
     border-color: #ccc;
   }
 }
