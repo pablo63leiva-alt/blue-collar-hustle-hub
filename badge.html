@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Badge — TradeLift Partner</title>
+    <meta name="description" content="Add the &quot;I Support Trade Careers&quot; badge to your email signature. Copy-paste the HTML snippet.">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#0a0a0a;--bg-card:#1c1c1c;--border:#2a2a2a;
+            --orange:#ff6b00;--orange-hover:#e05e00;
+            --white:#fff;--body:#b0b0b0;--muted:#8a8a8a;
+            --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+            --radius:8px;
+        }
+        html{scroll-behavior:smooth;font-size:16px}
+        body{font-family:var(--font);background:var(--bg);color:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+        a{color:var(--orange);text-decoration:none}
+        a:hover{color:var(--orange-hover)}
+        .container{width:100%;max-width:800px;margin:0 auto;padding:32px 20px}
+        h1{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:900;color:var(--white);margin-bottom:8px}
+        .subtitle{color:var(--muted);font-size:1rem;margin-bottom:36px;max-width:600px}
+        .section-label{font-size:.85rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+        .badge-preview{margin-bottom:32px;padding:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-align:center}
+        .badge-preview img{display:inline-block;margin:0 auto}
+        .code-block{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;font-size:.85rem;color:var(--white);overflow-x:auto;white-space:pre;line-height:1.5;margin-bottom:12px}
+        .copy-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:.85rem;font-weight:600;border-radius:50px;border:1px solid var(--border);background:var(--bg-card);color:var(--body);cursor:pointer;transition:border-color .2s,color .2s;margin-bottom:32px;font-family:var(--font)}
+        .copy-btn:hover{border-color:var(--orange);color:var(--orange)}
+        .note{background:rgba(255,193,7,.06);border-left:3px solid #ffc107;border-radius:0 var(--radius) var(--radius) 0;padding:14px 18px;font-size:.9rem;color:var(--body);margin-bottom:32px}
+        .note strong{color:#ffc107;font-weight:700}
+        .back-link{display:inline-block;margin-top:8px;font-size:.9rem;color:var(--muted)}
+        .back-link:hover{color:var(--orange)}
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Email Signature Badge</h1>
+    <p class="subtitle">Show your support for trade careers! Add the &ldquo;I Support Trade Careers&rdquo; badge to your email signature using the HTML snippet below.</p>
+
+    <div class="section-label">Badge Preview</div>
+    <div class="badge-preview">
+        <a href="https://tradelift.is-a.dev"><img src="assets/email-badge.png" alt="I Support Trade Careers" width="150" height="50"></a>
+    </div>
+
+    <div class="section-label">HTML Snippet — Copy & Paste into your email signature</div>
+    <div class="code-block" id="snippetCode">&lt;a href="https://tradelift.is-a.dev"&gt;&lt;img src="https://tradelift.is-a.dev/assets/email-badge.png" alt="I Support Trade Careers"&gt;&lt;/a&gt;</div>
+    <button class="copy-btn" id="copyBtn" type="button">Copy to Clipboard</button>
+
+    <div class="note">
+        <strong>Tip:</strong> Most email clients (Gmail, Outlook, Apple Mail) support HTML signatures. Go to Settings → Signature, switch to HTML mode, and paste the snippet.
+    </div>
+
+    <a class="back-link" href="https://tradelift.is-a.dev">← Back to TradeLift</a>
+</div>
+
+<script>
+document.getElementById('copyBtn').addEventListener('click',function(){
+    var text=document.getElementById('snippetCode').textContent;
+    navigator.clipboard.writeText(text).then(function(){
+        document.getElementById('copyBtn').textContent='Copied!';
+        setTimeout(function(){document.getElementById('copyBtn').textContent='Copy to Clipboard';},2000);
+    });
+});
+</script>
+
+</body>
+</html>

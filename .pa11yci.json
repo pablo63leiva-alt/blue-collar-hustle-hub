@@ -1,0 +1,14 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "level": "error",
+    "timeout": 10000,
+    "wait": 1000
+  },
+  "urls": [
+    "https://tradelift.is-a.dev/",
+    "https://tradelift.is-a.dev/trades.html",
+    "https://tradelift.is-a.dev/getting-started.html",
+    "https://tradelift.is-a.dev/resources.html"
+  ]
+}

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Trade — TradeLift Quiz</title>
+    <meta name="description" content="Answer 8 quick questions and discover which skilled trade fits you best. Salary, training time, and next steps — all in one result.">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#0a0a0a;--bg-card:#1c1c1c;--border:#2a2a2a;
+            --orange:#ff6b00;--orange-hover:#e05e00;--yellow:#ffc107;
+            --white:#fff;--body:#b0b0b0;--muted:#8a8a8a;
+            --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+            --radius:8px;
+        }
+        html{scroll-behavior:smooth;font-size:16px}
+        body{font-family:var(--font);background:var(--bg);color:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+        a{color:var(--orange);text-decoration:none}
+        a:hover{color:var(--orange-hover)}
+
+        .quiz-wrap{max-width:680px;margin:0 auto;padding:32px 20px}
+
+        .quiz-header{text-align:center;margin-bottom:36px}
+        .quiz-header h1{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:900;color:var(--white);margin-bottom:8px}
+        .quiz-header p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto}
+
+        .progress-bar{height:6px;background:var(--border);border-radius:3px;margin-bottom:32px;overflow:hidden}
+        .progress-fill{height:100%;background:var(--orange);border-radius:3px;width:0;transition:width .4s ease}
+
+        .question-group{display:none}
+        .question-group.active{display:block}
+
+        .q-label{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:16px;display:block;line-height:1.4}
+
+        .options{display:flex;flex-direction:column;gap:10px}
+
+        .option-label{
+            display:flex;align-items:center;gap:12px;
+            padding:14px 18px;
+            background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+            cursor:pointer;transition:border-color .2s,background .2s;
+            font-size:0.95rem;color:var(--body);
+        }
+        .option-label:hover{border-color:var(--orange);background:rgba(255,107,0,.06)}
+        .option-label input{accent-color:var(--orange);width:18px;height:18px;flex-shrink:0;cursor:pointer}
+        .option-label input:checked~span{color:var(--white)}
+        .option-label:has(input:checked){border-color:var(--orange);background:rgba(255,107,0,.1)}
+
+        .q-nav{display:flex;gap:12px;margin-top:28px;justify-content:flex-end}
+        .btn{
+            display:inline-flex;align-items:center;justify-content:center;gap:8px;
+            padding:12px 28px;font-size:1rem;font-weight:600;border-radius:50px;
+            border:2px solid transparent;cursor:pointer;transition:background .2s,color .2s,transform .2s,box-shadow .2s;
+            text-decoration:none;font-family:inherit;
+        }
+        .btn:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,107,0,.3)}
+        .btn:active{transform:translateY(0)}
+        .btn-primary{background:var(--orange);color:var(--white);border-color:var(--orange)}
+        .btn-primary:hover{background:var(--orange-hover);border-color:var(--orange-hover);color:var(--white)}
+        .btn-outline{background:transparent;color:var(--orange);border-color:var(--orange)}
+        .btn-outline:hover{background:var(--orange);color:var(--white)}
+        .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+        /* Result card */
+        .result-card{display:none;text-align:center}
+        .result-card.active{display:block}
+        .result-icon{font-size:4rem;margin-bottom:12px}
+        .result-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:900;color:var(--white);margin-bottom:8px}
+        .result-subtitle{color:var(--muted);font-size:1rem;margin-bottom:24px}
+        .result-meta{display:flex;justify-content:center;gap:32px;margin-bottom:28px;flex-wrap:wrap}
+        .result-meta-item{text-align:center}
+        .result-meta-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+        .result-meta-value{font-size:1.15rem;font-weight:700;color:var(--yellow);margin-top:4px}
+        .result-desc{color:var(--body);font-size:0.95rem;max-width:520px;margin:0 auto 28px;line-height:1.7}
+        .result-cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+        .powered-by{text-align:center;margin-top:32px;font-size:.8rem;color:var(--muted)}
+        .powered-by a{color:var(--orange)}
+    </style>
+</head>
+<body>
+
+<div class="quiz-wrap">
+
+    <div class="quiz-header">
+        <h1>Find Your Trade</h1>
+        <p>Answer 8 quick questions and discover which skilled trade fits you best.</p>
+    </div>
+
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+    <form id="quizForm">
+
+        <!-- Q1 -->
+        <fieldset class="question-group active" data-step="1">
+            <legend class="q-label">1. What sounds most satisfying to you?</legend>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q1" value="wiring"><span>Wiring a house so the lights turn on</span></label>
+                <label class="option-label"><input type="radio" name="q1" value="plumbing"><span>Fixing a leaky pipe before it causes damage</span></label>
+                <label class="option-label"><input type="radio" name="q1" value="metalwork"><span>Welding two pieces of metal into one solid structure</span></label>
+                <label class="option-label"><input type="radio" name="q1" value="climate"><span>Getting an AC unit roaring on a hot day</span></label>
+                <label class="option-label"><input type="radio" name="q1" value="vehicles"><span>Diagnosing and fixing a broken engine</span></label>
+                <label class="option-label"><input type="radio" name="q1" value="wood"><span>Building something beautiful from raw lumber</span></label>
+            </div>
+        </fieldset>
+
+        <!-- Q2 -->
+        <fieldset class="question-group" data-step="2">
+            <legend class="q-label">2. What's your ideal learning style?</legend>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q2" value="structured"><span>Structured — give me a step-by-step program</span></label>
+                <label class="option-label"><input type="radio" name="q2" value="hands-on"><span>Hands-on — learn by doing on the job</span></label>
+                <label class="option-label"><input type="radio" name="q2" value="fast"><span>Fast track — get in and start working quickly</span></label>
+                <label class="option-label"><input type="radio" name="q2" value="self-paced"><span>Self-paced — I like figuring things out</span></label>
+            </div>
+        </fieldset>
+
+        <!-- Q3 -->
+        <fieldset class="question-group" data-step="3">
+            <legend class="q-label">3. Which work environment appeals to you most?</legend>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q3" value="indoors"><span>Indoors — offices, homes, commercial buildings</span></label>
+                <label class="option-label"><input type="radio" name="q3" value="outdoors"><span>Outdoors — rooftops, fields, open-air job sites</span></label>
+                <label class="option-label"><input type="radio" name="q3" value="industrial"><span>Industrial — plants, factories, refineries</span></label>
+                <label class="option-label"><input type="radio" name="q3" value="mobile"><span>On the move — different locations every day</span></label>
+            </div>
+        </fieldset>
+
+        <!-- Q4 -->
+        <fieldset class="question-group" data-step="4">
+            <legend class="q-label">4. How important is earning potential to you right away?</legend>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q4" value="top-pay"><span>Top priority — I want the highest salary possible</span></label>
+                <label class="option-label"><input type="radio" name="q4" value="solid"><span>Solid & stable — good pay matters, but not everything</span></label>
+                <label class="option-label"><input type="radio" name="q4" value="growth"><span>Long-term growth — start lower, climb fast</span></label>
+                <label class="option-label"><input type="radio" name="q4" value="balanced"><span>Balanced — decent pay with work-life balance</span></label>
+            </div>
+        </fieldset>
+
+        <!-- Q5 -->
+        <fieldset class="question-group" data-step="5">
+            <legend class="q-label">5. Do you prefer working with your hands or solving technical problems?</legend>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q5" value="hands"><span>Definitely hands-on — building, cutting, fitting</span></label>
+                <label class="option-label"><input type="radio" name="q5" value="technical"><span>Technical — diagnostics, troubleshooting, systems</span></label>
+                <label class="option-label"><input type="radio" name="q5" value="both"><span>A mix of both — variety keeps it interesting</span></label>
+                <label class="option-label"><input type="radio" name="q5" value="planning"><span>Planning & managing — leading the crew</span></label>
+            </div>
+        </fieldset>
+
+        <!-- Q6 -->
+        <fieldset class="question-group" data-step="6">
+            <legend class="q-label">6. How do you feel about heights and physically demanding work?</legend>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q6" value="love-heights"><span>Bring it on — I love heights and physical challenges</span></label>
+                <label class="option-label"><input type="radio" name="q6" value="comfortable"><span>Fine with it — moderate physical work is great</span></label>
+                <label class="option-label"><input type="radio" name="q6" value="prefer-ground"><span>Prefer staying on the ground — less extreme environments</span></label>
+                <label class="option-label"><input type="radio" name="q6" value="no-heavy"><span>Keep it light — I prefer precision over brute force</span></label>
+            </div>
+        </fieldset>
+
+        <!-- Q7 -->
+        <fieldset class="question-group" data-step="7">
+            <legend class="q-label">7. How long are you willing to invest in training before starting full-time?</legend>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q7" value="short"><span>6 months or less — I want to start ASAP</span></label>
+                <label class="option-label"><input type="radio" name="q7" value="medium"><span>1–2 years — worth it for the right career</span></label>
+                <label class="option-label"><input type="radio" name="q7" value="long"><span>3–5 years — I'm in it for the long haul</span></label>
+                <label class="option-label"><input type="radio" name="q7" value="experience"><span>Experience first — work my way up from the field</span></label>
+            </div>
+        </fieldset>
+
+        <!-- Q8 -->
+        <fieldset class="question-group" data-step="8">
+            <legend class="q-label">8. What motivates you most about a trade career?</legend>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q8" value="debt-free"><span>Skipping student debt entirely</span></label>
+                <label class="option-label"><input type="radio" name="q8" value="job-security"><span>Guaranteed job security — always in demand</span></label>
+                <label class="option-label"><input type="radio" name="q8" value="build-stuff"><span>Building things people actually use</span></label>
+                <label class="option-label"><input type="radio" name="q8" value="own-business"><span>One day starting my own business</span></label>
+            </div>
+        </fieldset>
+
+        <!-- Navigation -->
+        <div class="q-nav" id="quizNav">
+            <button type="button" class="btn btn-outline" id="prevBtn" disabled>Back</button>
+            <button type="button" class="btn btn-primary" id="nextBtn" disabled>Next</button>
+        </div>
+
+    </form>
+
+    <!-- Result Card -->
+    <div class="result-card" id="resultCard">
+        <div class="result-icon" id="resultIcon"></div>
+        <h2 class="result-title" id="resultTitle"></h2>
+        <p class="result-subtitle" id="resultSubtitle"></p>
+        <div class="result-meta">
+            <div class="result-meta-item">
+                <div class="result-meta-label">Average Salary</div>
+                <div class="result-meta-value" id="resultSalary"></div>
+            </div>
+            <div class="result-meta-item">
+                <div class="result-meta-label">Time to Start</div>
+                <div class="result-meta-value" id="resultTime"></div>
+            </div>
+            <div class="result-meta-item">
+                <div class="result-meta-label">Category</div>
+                <div class="result-meta-value" id="resultCategory"></div>
+            </div>
+        </div>
+        <p class="result-desc" id="resultDesc"></p>
+        <div class="result-cta">
+            <a id="resultLink" class="btn btn-primary" href="#">Explore <span id="resultTradeName"></span> on TradeLift</a>
+            <button type="button" class="btn btn-outline" id="retakeBtn">Retake Quiz</button>
+        </div>
+    </div>
+
+    <div class="powered-by">Powered by <a href="https://tradelift.is-a.dev">TradeLift</a></div>
+</div>
+
+<script>
+(function(){
+    var TRADES={
+        "Electrician":{icon:"⚡",salary:"$60K–$80K",time:"4 year apprenticeship",category:"Construction",desc:"Install, maintain, and repair electrical systems in homes, businesses, and industrial facilities. Electricians are essential to modern infrastructure and enjoy strong demand nationwide with opportunities for specialization and advancement.",id:"electrician"},
+        "Plumber":{icon:"🔧",salary:"$55K–$75K",time:"4–5 year apprenticeship",category:"Construction",desc:"Install and repair water supply lines, drainage systems, and fixtures. Plumbers play a critical role in public health and construction, with year-round employment opportunities and the potential to run your own business.",id:"plumber"},
+        "Welder":{icon:"🔥",salary:"$45K–$70K",time:"6mo–2 year certificate",category:"Industrial",desc:"Join metals together using various welding techniques for construction, manufacturing, and repair work. Welders work on everything from bridges and pipelines to aerospace components and custom fabrication projects.",id:"welder"},
+        "HVAC Technician":{icon:"❄️",salary:"$50K–$70K",time:"2 year program",category:"Construction",desc:"Install, maintain, and repair heating, ventilation, and air conditioning systems in residential and commercial buildings. HVAC technicians enjoy steady demand year-round due to climate control needs in every season.",id:"hvac-technician"},
+        "Automotive Mechanic":{icon:"🚗",salary:"$40K–$65K",time:"6mo–2 year program",category:"Automotive",desc:"Diagnose, repair, and maintain vehicles using both traditional mechanical skills and modern diagnostic technology. Automotive mechanics work in dealerships, independent shops, or start their own repair businesses.",id:"automotive-mechanic"},
+        "Carpenter":{icon:"🪚",salary:"$45K–$65K",time:"3–4 year apprenticeship",category:"Construction",desc:"Build, install, and repair structures and fixtures made of wood and other materials. Carpenters are the backbone of the construction industry, working on everything from framing houses to finishing custom cabinetry.",id:"carpenter"},
+        "Ironworker":{icon:"🏗️",salary:"$55K–$80K",time:"3 year apprenticeship",category:"Industrial",desc:"Erect structural and reinforcing iron and steel for buildings, bridges, and other large structures. Ironworkers are in high demand for major infrastructure projects and enjoy some of the best pay in the trades.",id:"ironworker"},
+        "Pipefitter":{icon:"🔩",salary:"$60K–$85K",time:"4–5 year apprenticeship",category:"Industrial",desc:"Assemble, install, and repair pipe systems in power plants, manufacturing facilities, and industrial settings. Pipefitters work with high-pressure systems and specialize in piping for steam, chemicals, and gases.",id:"pipefitter"},
+        "Diesel Mechanic":{icon:"🚛",salary:"$45K–$65K",time:"2 year program",category:"Automotive",desc:"Inspect, repair, and maintain diesel engines in trucks, buses, and heavy equipment. Diesel mechanics are essential to keeping the transportation and construction industries running and often enjoy flexible work schedules.",id:"diesel-mechanic"},
+        "Mason":{icon:"🧱",salary:"$45K–$70K",time:"3–4 year apprenticeship",category:"Skilled Craft",desc:"Build structures and surfaces from brick, block, and stone. Masons are the skilled craftspeople behind walls, patios, foundations, and architectural details, with steady demand across residential and commercial construction.",id:"mason"},
+        "Roofer":{icon:"🏠",salary:"$40K–$65K",time:"2–3 year apprenticeship",category:"Skilled Craft",desc:"Install, repair, and replace roofs on residential and commercial buildings. Roofers practice a hands-on craft with year-round demand — every building needs a roof, and roofs wear out over time.",id:"roofer"},
+        "Construction Manager":{icon:"📋",salary:"$70K–$100K",time:"Experience + degree",category:"Construction",desc:"Oversee construction projects from planning through completion, managing budgets, schedules, and crews. Many construction managers start as skilled tradespeople and work their way up with hands-on experience in the field.",id:"construction-manager"}
+    };
+
+    var currentStep=1, totalSteps=8;
+    var groups=document.querySelectorAll('.question-group');
+    var progressFill=document.getElementById('progressFill');
+    var prevBtn=document.getElementById('prevBtn');
+    var nextBtn=document.getElementById('nextBtn');
+    var quizNav=document.getElementById('quizNav');
+    var quizForm=document.getElementById('quizForm');
+    var resultCard=document.getElementById('resultCard');
+    var retakeBtn=document.getElementById('retakeBtn');
+
+    function updateUI(){
+        groups.forEach(function(g){g.classList.remove('active')});
+        var cur=document.querySelector('[data-step="'+currentStep+'"]');
+        if(cur) cur.classList.add('active');
+        progressFill.style.width=((currentStep/totalSteps)*100)+'%';
+        prevBtn.disabled=(currentStep===1);
+        var checked=document.querySelector('input[name="q'+currentStep+'"]:checked');
+        nextBtn.disabled=!checked;
+        if(currentStep===totalSteps){
+            nextBtn.textContent='See My Result';
+        }else{
+            nextBtn.textContent='Next';
+        }
+    }
+
+    function getSelected(q){var r=document.querySelector('input[name="'+q+'"]:checked');return r?r.value:null;}
+
+    function scoreTrade(){
+        var answers={};
+        for(var i=1;i<=8;i++){answers['q'+i]=getSelected('q'+i);}
+
+        var scores={};
+        Object.keys(TRADES).forEach(function(t){scores[t]=0;});
+
+        // Q1 — interest affinity
+        var q1=answers.q1;
+        if(q1==='wiring'){scores["Electrician"]+=4;scores["HVAC Technician"]+=1;}
+        else if(q1==='plumbing'){scores["Plumber"]+=4;scores["Pipefitter"]+=3;}
+        else if(q1==='metalwork'){scores["Welder"]+=4;scores["Ironworker"]+=3;}
+        else if(q1==='climate'){scores["HVAC Technician"]+=4;scores["Plumber"]+=1;}
+        else if(q1==='vehicles'){scores["Automotive Mechanic"]+=4;scores["Diesel Mechanic"]+=3;}
+        else if(q1==='wood'){scores["Carpenter"]+=4;scores["Roofer"]+=1;scores["Mason"]+=1;}
+
+        // Q2 — learning style
+        var q2=answers.q2;
+        if(q2==='structured'){scores["Electrician"]+=2;scores["Plumber"]+=2;scores["Pipefitter"]+=2;scores["Construction Manager"]+=1;}
+        else if(q2==='hands-on'){scores["Carpenter"]+=2;scores["Welder"]+=2;scores["Ironworker"]+=2;scores["Roofer"]+=1;}
+        else if(q2==='fast'){scores["Welder"]+=2;scores["Roofer"]+=1;scores["Automotive Mechanic"]+=2;scores["Mason"]+=1;}
+        else if(q2==='self-paced'){scores["Construction Manager"]+=2;scores["Diesel Mechanic"]+=1;}
+
+        // Q3 — environment
+        var q3=answers.q3;
+        if(q3==='indoors'){scores["Electrician"]+=2;scores["HVAC Technician"]+=2;scores["Plumber"]+=1;}
+        else if(q3==='outdoors'){scores["Roofer"]+=3;scores["Carpenter"]+=2;scores["Ironworker"]+=2;scores["Mason"]+=1;}
+        else if(q3==='industrial'){scores["Welder"]+=2;scores["Pipefitter"]+=3;scores["Ironworker"]+=2;scores["Diesel Mechanic"]+=1;}
+        else if(q3==='mobile'){scores["Automotive Mechanic"]+=2;scores["Diesel Mechanic"]+=2;scores["Electrician"]+=1;scores["Plumber"]+=1;}
+
+        // Q4 — pay priority
+        var q4=answers.q4;
+        if(q4==='top-pay'){scores["Pipefitter"]+=2;scores["Construction Manager"]+=2;scores["Electrician"]+=2;scores["Ironworker"]+=1;}
+        else if(q4==='solid'){scores["Electrician"]+=1;scores["Plumber"]+=1;scores["HVAC Technician"]+=1;}
+        else if(q4==='growth'){scores["Construction Manager"]+=3;scores["Electrician"]+=1;}
+        else if(q4==='balanced'){scores["Carpenter"]+=1;scores["Mason"]+=1;scores["Roofer"]+=1;scores["Diesel Mechanic"]+=1;}
+
+        // Q5 — hands vs technical
+        var q5=answers.q5;
+        if(q5==='hands'){scores["Carpenter"]+=3;scores["Mason"]+=2;scores["Roofer"]+=2;scores["Ironworker"]+=2;}
+        else if(q5==='technical'){scores["Electrician"]+=2;scores["HVAC Technician"]+=2;scores["Automotive Mechanic"]+=2;scores["Diesel Mechanic"]+=2;}
+        else if(q5==='both'){scores["Welder"]+=2;scores["Plumber"]+=2;scores["Pipefitter"]+=2;scores["Electrician"]+=1;}
+        else if(q5==='planning'){scores["Construction Manager"]+=4;}
+
+        // Q6 — physical / heights
+        var q6=answers.q6;
+        if(q6==='love-heights'){scores["Ironworker"]+=3;scores["Roofer"]+=3;scores["Carpenter"]+=1;}
+        else if(q6==='comfortable'){scores["Carpenter"]+=1;scores["Mason"]+=2;scores["Plumber"]+=1;scores["Welder"]+=1;}
+        else if(q6==='prefer-ground'){scores["Electrician"]+=2;scores["HVAC Technician"]+=1;scores["Automotive Mechanic"]+=2;scores["Diesel Mechanic"]+=2;}
+        else if(q6==='no-heavy'){scores["Electrician"]+=2;scores["HVAC Technician"]+=2;scores["Construction Manager"]+=1;}
+
+        // Q7 — training time
+        var q7=answers.q7;
+        if(q7==='short'){scores["Welder"]+=3;scores["Roofer"]+=2;scores["Automotive Mechanic"]+=1;}
+        else if(q7==='medium'){scores["HVAC Technician"]+=2;scores["Diesel Mechanic"]+=2;scores["Carpenter"]+=1;scores["Mason"]+=1;}
+        else if(q7==='long'){scores["Electrician"]+=2;scores["Plumber"]+=2;scores["Pipefitter"]+=2;scores["Ironworker"]+=1;}
+        else if(q7==='experience'){scores["Construction Manager"]+=3;scores["Roofer"]+=1;}
+
+        // Q8 — motivation
+        var q8=answers.q8;
+        if(q8==='debt-free'){scores["Welder"]+=1;scores["Roofer"]+=1;scores["Automotive Mechanic"]+=1;scores["Mason"]+=1;}
+        else if(q8==='job-security'){scores["Electrician"]+=2;scores["Plumber"]+=2;scores["HVAC Technician"]+=2;}
+        else if(q8==='build-stuff'){scores["Carpenter"]+=2;scores["Ironworker"]+=2;scores["Mason"]+=2;scores["Welder"]+=1;}
+        else if(q8==='own-business'){scores["Plumber"]+=2;scores["Electrician"]+=1;scores["Construction Manager"]+=2;scores["Automotive Mechanic"]+=1;}
+
+        // Find highest score
+        var bestTrade=null, bestScore=-1;
+        Object.keys(scores).forEach(function(t){
+            if(scores[t]>bestScore){bestScore=scores[t];bestTrade=t;}
+        });
+        return bestTrade;
+    }
+
+    function showResult(tradeName){
+        var t=TRADES[tradeName];
+        document.getElementById('resultIcon').textContent=t.icon;
+        document.getElementById('resultTitle').textContent='You\'re a '+tradeName+'!';
+        document.getElementById('resultSubtitle').textContent='Based on your answers, this trade is the best match for you.';
+        document.getElementById('resultSalary').textContent=t.salary;
+        document.getElementById('resultTime').textContent=t.time;
+        document.getElementById('resultCategory').textContent=t.category;
+        document.getElementById('resultDesc').textContent=t.desc;
+        document.getElementById('resultTradeName').textContent=tradeName;
+        document.getElementById('resultLink').href='https://tradelift.is-a.dev/trades.html#'+t.id;
+        quizForm.style.display='none';
+        quizNav.style.display='none';
+        progressFill.style.width='100%';
+        resultCard.classList.add('active');
+    }
+
+    // Radio change enables next
+    quizForm.addEventListener('change',function(){
+        var checked=document.querySelector('input[name="q'+currentStep+'"]:checked');
+        nextBtn.disabled=!checked;
+    });
+
+    nextBtn.addEventListener('click',function(){
+        var checked=document.querySelector('input[name="q'+currentStep+'"]:checked');
+        if(!checked) return;
+        if(currentStep<totalSteps){
+            currentStep++;
+            updateUI();
+        }else{
+            var winner=scoreTrade();
+            showResult(winner);
+        }
+    });
+
+    prevBtn.addEventListener('click',function(){
+        if(currentStep>1){currentStep--;updateUI();}
+    });
+
+    retakeBtn.addEventListener('click',function(){
+        quizForm.reset();
+        currentStep=1;
+        resultCard.classList.remove('active');
+        quizForm.style.display='';
+        quizNav.style.display='';
+        updateUI();
+    });
+
+    updateUI();
+})();
+</script>
+
+</body>
+</html>

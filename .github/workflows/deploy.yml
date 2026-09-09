@@ -21,6 +21,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate sitemap
+        run: node scripts/generate-sitemap.js
+
+      - name: Accessibility check (pa11y-ci)
+        run: npx pa11y-ci
+
+      - name: Link checker (linkinator)
+        run: npx linkinator . --skip "mailto:*" --concurrency 5
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:

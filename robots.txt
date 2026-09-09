@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tradelift.is-a.dev/sitemap.xml

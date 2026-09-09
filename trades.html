@@ -213,6 +213,30 @@
     }
     </script>
 
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://tradelift.is-a.dev/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Trades"
+            }
+        ]
+    }
+    </script>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -508,6 +532,8 @@
                         <li><a href="trades.html" aria-current="page">Trades</a></li>
                         <li><a href="getting-started.html">Getting Started</a></li>
                         <li><a href="resources.html">Resources</a></li>
+                        <li><a href="widget/quiz.html">Find Your Trade Quiz</a></li>
+                        <li><a href="badge.html">Email Badge</a></li>
                     </ul>
                 </div>
 
