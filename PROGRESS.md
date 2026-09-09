@@ -1,36 +1,36 @@
 # Blue Collar Hustle Hub — Progress Tracker
 
-**Last updated:** Review bugs fixed, pushed. Activating GitHub Pages.
+**Last updated:** 🎉 SITE IS LIVE ON GITHUB PAGES.
 
-## Status: 🟢 FIXED & PUSHED — ACTIVATING PAGES
+## Status: 🟢 LIVE — https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/
 
 ### Milestones
 - [x] Project structure scaffolded
 - [x] Homepage (index.html) built
-- [x] Trades explorer page (trades.html) built — 12 trades (added Mason + Roofer for Skilled Craft filter)
+- [x] Trades explorer page (trades.html) built — 12 trades + working filters
 - [x] Getting started guide (getting-started.html) built
 - [x] Resources page (resources.html) built
 - [x] CSS styling (style.css) built — dark industrial theme, aligned to HTML classes
 - [x] JavaScript interactivity (js/main.js)
-- [x] GitHub Actions deployment workflow (.github/workflows/deploy.yml)
-- [x] Missing assets created: img/hero-trades.svg, img/og-image.png (1200x630), img/logo.png (512x512)
-- [x] Meta/JSON-LD URLs updated to real Pages domain (was placeholder bluecollarhustlehub.com)
-- [x] Review pass 1 (subagent) — clean
-- [x] Review pass 2 (subagent, functionality) — clean
-- [x] Review-bug fixes committed & pushed
-- [x] AGENTS.md created (workflow rules: 2 subagent review passes after finishing)
-- [ ] Enable GitHub Pages (manual step; token can't via API)
-- [ ] Trigger deploy & verify live site
+- [x] GitHub Actions deployment workflow (.github/workflows/deploy.yml) with `enablement: true`
+- [x] Missing assets created: hero-trades.svg, og-image.png (1200x630), logo.png (512x512)
+- [x] Meta/JSON-LD URLs → real Pages domain
+- [x] Review passes x2 (subagents) — clean
+- [x] **New production repo created: pablo63leiva-alt/blue-collar-hustle-hub** (old repo was a fork; GitHub blocks Pages on forks)
+- [x] GitHub Pages enabled via API (PAT) + build_type workflow
+- [x] Deploy workflow passed (success)
+- [x] Verified live: all 4 pages + css/js/img return HTTP 200
 
-### Review Bugs Fixed This Round
-- Skilled Craft filter had 0 matching cards → added Mason + Roofer (data-category="skilled-craft"), updated JSON-LD to 12 items
-- Orphaned CSS (.resource-card, .hero-buttons) removed
-- Footer active-page links now styled via .footer-nav a[aria-current="page"]
-- og-image.png / logo.png were missing → generated 1200x630 and 512x512 PNGs
-- Placeholder domain in meta/JSON-LD → real GitHub Pages URL
+### Getting Here: The Fork Workaround
+- GitHub refused to enable Pages on the original fork (even with `enablement: true` in the workflow): "Resource not accessible by integration".
+- User created a fresh non-fork repo (blue-collar-hustle-hub); pushed code via PAT credential; created the Pages site via `POST /repos/.../pages` with classic PAT `repo`+`workflow` scopes; re-ran the deploy workflow → success.
 
-### How to Activate (manual — API token lacks permission)
-1. Repo: **Settings → Pages** → Source: **GitHub Actions**
-2. Deploy workflow auto-runs on push; or re-run from Actions tab
-3. Live at: `https://pablo63leiva-alt.github.io/https-github.com-github-codespaces-blank/`
-4. For a cleaner URL, rename repo or add a custom domain, then update meta/JSON-LD URLs in the 4 HTML files.
+### Notes
+- Production pushes go to the `pages` git remote (blue-collar-hustle-hub). The fork remains the dev copy.
+- Deploy is automatic on every push to `main` of blue-collar-hustle-hub.
+- Keep sharing/reflog: the PAT was used during setup; revoke/replace it as needed.
+
+### Optional Future Work
+- Cleaner custom domain (e.g. bluecollarhustlehub.com) — then update meta/JSON-LD URLs in the 4 HTML files.
+- Add newsletter backend (currently a placeholder that shows "Thanks for subscribing!").
+- More trades, blog, or interactive quiz for "which trade fits me".

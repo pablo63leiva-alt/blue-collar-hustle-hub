@@ -34,7 +34,6 @@ Avoid student debt, high pay ($60K+), job security (750K open trade positions).
 4. Keep `PROGRESS.md` updated at the end of each session.
 
 ## Session Guidance
-- This is a Codespace; repo is a fork of `1278295381/https-github.com-github-codespaces-blank`.
-- Origin remote: `pablo63leiva-alt/https-github.com-github-codespaces-blank`.
-- GitHub Pages must be enabled manually (Settings → Pages → Source: GitHub Actions) — the thin token can't do it via API.
+- Live production repo: **`pablo63leiva-alt/blue-collar-hustle-hub`** → `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/` (GitHub Pages, auto-deploy via `.github/workflows/deploy.yml`).
+- The old repo `https-github.com-github-codespaces-blank` is a fork that GitHub refused to enable Pages on; it remains as the development copy. Push production changes to the `pages` remote (blue-collar-hustle-hub), NOT to the fork.
 - Always commit only when the user asks.
