@@ -1,7 +1,7 @@
-# Blue Collar Hustle Hub — Agent Instructions
+# TradeLift — Agent Instructions
 
 ## What This Is
-A static multi-page website promoting skilled-trade careers ("Blue Collar Hustle Hub").
+A static multi-page website promoting skilled-trade careers ("TradeLift").
 Dark industrial theme (orange/yellow accents, mobile-first responsive). No framework, no build step — vanilla HTML/CSS/JS.
 
 ## Pages
@@ -34,6 +34,6 @@ Avoid student debt, high pay ($60K+), job security (750K open trade positions).
 4. Keep `PROGRESS.md` updated at the end of each session.
 
 ## Session Guidance
-- Live production repo: **`pablo63leiva-alt/blue-collar-hustle-hub`** → `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/` (GitHub Pages, auto-deploy via `.github/workflows/deploy.yml`).
-- The old repo `https-github.com-github-codespaces-blank` is a fork that GitHub refused to enable Pages on; it remains as the development copy. Push production changes to the `pages` remote (blue-collar-hustle-hub), NOT to the fork.
+- Live production repo: **`tradelift.is-a.dev`** → `https://tradelift.is-a.dev/` (GitHub Pages, auto-deploy via `.github/workflows/deploy.yml`).
+- The old repo `https-github.com-github-codespaces-blank` is a fork that GitHub refused to enable Pages on; it remains as the development copy. Push production changes to the `pages` remote (tradelift.is-a.dev), NOT to the fork.
 - Always commit only when the user asks.
