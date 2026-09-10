@@ -400,6 +400,8 @@
       emailCapture.hidden = false;
     }
 
+    document.dispatchEvent(new Event('quiz-results-revealed'));
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 

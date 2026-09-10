@@ -160,6 +160,12 @@
 
 ---
 
+### WAVE 3 (12:19 PM SNAPSHOT BUILD — Lang + next reviews)
+- **Lang:** built branded per-trade share cards — js/quiz-share.js (SVG foreignObject→canvas PNG download, "Download my result card!" button on quiz results), quiz.html (preview container + script), css/quiz.css (+32 scoped lines), docs/social-sharing.md (captions/hashtags/UTM). Verified (node --check, html.parser, braces, no dup IDs). ✅
+- **Rogers (Pass 1 on Fury funnel):** 0 critical, 1 major (M1: quiz.html :124 email input missing `<label>`/aria-label — WCAG fail, FIX WITH .visually-hidden label), 5 minor (m1 dead questionEl.id reset quiz.js:285; m2 redundant locked=false retake() quiz.js:408; m3 emailSubmitted flag unused → add guard in handleEmailSubmit; m4 print media hides results parent in css/quiz.css:386-389 → blank printed page; m5 doc-level note on gating results in conversion-funnel.md). **Shuri fixes NOT yet applied — queue for next session.**
+- Romanoff Pass 2 on Fury funnel: NOT RUN yet → queue for next session (AGENTS.md two-pass rule).
+- **Deploy still blocked** on credentials (push to `pages`). Commit `1950774` + funnel + share-card work staged/committed in wh, but NOT pushed to production.
+
 ## 8. Identity Notes
 
 - Jarvis = the PM AI persona (omniroute/auto via OmniRoute localhost:20128). Subagents: `general` type, fresh context per launch unless resumed with task_id.
