@@ -1,36 +1,44 @@
 # TradeLift — Progress Tracker
 
-**Last updated:** 🎉 SITE IS LIVE ON GITHUB PAGES.
+**Last updated:** Thursday, September 10, 2026 — 12:19 PM EDT (snapshot per user request)
 
-## Status: 🟢 LIVE — https://tradelift.is-a.dev/
+## Status: 🟡 NEW WAVE READY — DEPLOY BLOCKED ON CREDENTIALS
 
-### Milestones
+Live site: https://tradelift.is-a.dev/ (running the PRE-wave build until push unblocks).
+
+## Milestones
+
+### Done & Shipped (published to production earlier)
 - [x] Project structure scaffolded
-- [x] Homepage (index.html) built
-- [x] Trades explorer page (trades.html) built — 12 trades + working filters
-- [x] Getting started guide (getting-started.html) built
-- [x] Resources page (resources.html) built
-- [x] CSS styling (style.css) built — dark industrial theme, aligned to HTML classes
-- [x] JavaScript interactivity (js/main.js)
+- [x] Homepage (index.html), Trades explorer (trades.html, 12 trades + filters), Getting Started (getting-started.html), Resources (resources.html)
+- [x] CSS dark industrial theme, JS interactivity (js/main.js)
 - [x] GitHub Actions deployment workflow (.github/workflows/deploy.yml) with `enablement: true`
-- [x] Missing assets created: hero-trades.svg, og-image.png (1200x630), logo.png (512x512)
+- [x] Missing assets: hero-trades.svg, og-image.png (1200x630), logo.png (512x512)
 - [x] Meta/JSON-LD URLs → real Pages domain
-- [x] Review passes x2 (subagents) — clean
-- [x] **New production repo created: pablo63leiva-alt/tradelift.is-a.dev** (old repo was a fork; GitHub blocks Pages on forks)
-- [x] GitHub Pages enabled via API (PAT) + build_type workflow
-- [x] Deploy workflow passed (success)
-- [x] Verified live: all 4 pages + css/js/img return HTTP 200
+- [x] Production repo created (pablo63leiva-alt/blue-collar-hustle-hub, non-fork) + Pages enabled via PAT
+- [x] Deploy workflow passed; verified live (all pages HTTP 200) — pre-wave build
 
-### Getting Here: The Fork Workaround
-- GitHub refused to enable Pages on the original fork (even with `enablement: true` in the workflow): "Resource not accessible by integration".
-- User created a fresh non-fork repo (tradelift.is-a.dev); pushed code via PAT credential; created the Pages site via `POST /repos/.../pages` with classic PAT `repo`+`workflow` scopes; re-ran the deploy workflow → success.
+### Done in the 2026-09-10 PUBLISH WAVE (committed `1950774`, NOT yet pushed)
+- [x] Blog: blog.html + 2 SEO posts (how-to-become-an-electrician, trade-school-vs-college) w/ Article + FAQPage schema
+- [x] Quiz: quiz.html + js/quiz.js + css/quiz.css — 10-question "Which Trade Is For You?" (all 12 trades reachable)
+- [x] Lead capture: Formspree newsletter + exit modal w/ honeypot, validation, mailto fallback
+- [x] Integration: uniform nav (Home/Trades/Getting Started/Resources/Blog/Quiz), hero quiz CTA, blog teaser, callouts, canonicals on all pages, sitemap 8 URLs
+- [x] QA: Rogers (Pass 1, 20 findings) + Romanoff (Pass 2, independent functional, 7 findings) — all fixed by Shuri (21 fixes) and re-verified
+- [x] NEWS: Fury Wave 2 — quiz-results email capture funnel (docs/conversion-funnel.md) built, verified, awaiting review-pass before bundling into deploy
 
-### Notes
-- Production pushes go to the `pages` git remote (tradelift.is-a.dev). The fork remains the dev copy.
-- Deploy is automatic on every push to `main` of tradelift.is-a.dev.
-- Keep sharing/reflog: the PAT was used during setup; revoke/replace it as needed.
+### BLOCKED
+- [ ] **Push to production (`git push pages main`)** — environment GITHUB_TOKEN is Codespaces auto-token (metadata=read only). Needs user PAT (`repo`+`workflow`) OR codespace `repo` scope OR manual push by user. Code committed locally as `1950774` (+ Fury funnel files uncommitted).
 
-### Optional Future Work
-- Cleaner custom domain (e.g. tradelift.com) — then update meta/JSON-LD URLs in the 4 HTML files.
-- Add newsletter backend (currently a placeholder that shows "Thanks for subscribing!").
-- More trades, blog, or interactive quiz for "which trade fits me".
+## The Fork/PAT History (why production is a separate repo)
+- GitHub refused Pages on the original fork. Fresh non-fork repo created; Pages enabled via API + classic PAT (`repo`+`workflow`); deploy workflow succeeds on push.
+- PAT is a credential of the user; do not persist its value anywhere in this repo.
+
+## Notes
+- Production pushes → `pages` remote (blue-collar-hustle-hub). Deploy is automatic on push to `main` there.
+- The 12:19 PM EDT snapshot (2026-09-10) of project/memory/instructions lives in `docs/SESSION-MEMORY.md`.
+
+## Optional / Future Work
+- Fix deploy blocker (credentials) — top priority.
+- Review + deploy Fury funnel wave.
+- Affiliate pages (tools per trade), more blog posts (2-4/mo), quiz share images (12), widget embed for schools, Meta retargeting pixel, Google Search Console verification.
+- Revenue playbooks live in docs/monetization.md + docs/conversion-funnel.md.

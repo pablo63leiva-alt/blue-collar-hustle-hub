@@ -113,6 +113,26 @@
                         <h2 class="quiz-results-trade" id="quiz-results-trade"></h2>
                         <div class="quiz-results-salary" id="quiz-results-salary"></div>
                         <ul class="quiz-results-reasons" id="quiz-results-reasons"></ul>
+                        <div class="quiz-email-capture" id="quiz-email-capture" hidden>
+                            <div class="quiz-email-card">
+                                <h3 class="quiz-email-title">Your Personalized <span id="quiz-email-trade-name"></span> Career Roadmap</h3>
+                                <p class="quiz-email-text">Get your free roadmap: salary bands by state, apprenticeship steps, required certifications, tools checklist, and a 12-week action plan to start your career.</p>
+                                <form class="quiz-email-form" id="quiz-email-form">
+                                    <div style="position:absolute;left:-9999px" aria-hidden="true">
+                                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+                                    </div>
+                                    <input type="email" id="quiz-email-input" class="quiz-email-input" placeholder="Enter your email" required autocomplete="email" aria-describedby="quiz-email-error">
+                                    <button type="submit" class="btn btn-primary quiz-email-submit" id="quiz-email-submit">Send Me the Roadmap</button>
+                                </form>
+                                <p class="quiz-email-error" id="quiz-email-error" role="alert" aria-live="polite"></p>
+                                <button type="button" class="quiz-email-skip" id="quiz-email-skip">Not now, just show me my results</button>
+                            </div>
+                            <div class="quiz-email-success" id="quiz-email-success" hidden aria-live="polite">
+                                <span class="quiz-email-success-icon" aria-hidden="true">✅</span>
+                                <h3 class="quiz-email-success-title">Check your inbox!</h3>
+                                <p class="quiz-email-success-text">Your <span id="quiz-email-success-trade"></span> roadmap is on its way.</p>
+                            </div>
+                        </div>
                         <div class="quiz-results-cta">
                             <a href="trades.html" class="btn btn-primary">Explore Trades</a>
                             <button type="button" class="btn btn-outline" id="quiz-share-btn">Share Your Result</button>

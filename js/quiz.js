@@ -220,6 +220,10 @@
   var currentQuestion = 0;
   var scores = {};
   var locked = false;
+  var emailSubmitted = false;
+  var QUIZ_EMAIL_CONFIG = {
+    formspreeEndpoint: 'https://formspree.io/f/YOURID'
+  };
   var questionArea;
   var resultsArea;
   var progressFill;
@@ -251,6 +255,18 @@
     var shareBtn = document.getElementById('quiz-share-btn');
     if (shareBtn) {
       shareBtn.addEventListener('click', share);
+    }
+
+    var skipBtn = document.getElementById('quiz-email-skip');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', function () {
+        document.getElementById('quiz-email-capture').hidden = true;
+      });
+    }
+
+    var emailForm = document.getElementById('quiz-email-form');
+    if (emailForm) {
+      emailForm.addEventListener('submit', handleEmailSubmit);
     }
 
     renderQuestion();
@@ -376,6 +392,14 @@
     progressFill.style.width = '100%';
     progressText.textContent = 'Quiz complete!';
 
+    var emailTradeName = document.getElementById('quiz-email-trade-name');
+    if (emailTradeName) emailTradeName.textContent = winner.name;
+    var emailCapture = document.getElementById('quiz-email-capture');
+    if (emailCapture) {
+      resetEmailCapture();
+      emailCapture.hidden = false;
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -385,8 +409,88 @@
     TRADES.forEach(function (t) {
       scores[t.name] = 0;
     });
+    resetEmailCapture();
     renderQuestion();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function handleEmailSubmit(e) {
+    e.preventDefault();
+    var honeypot = document.querySelector('#quiz-email-form [name="_gotcha"]');
+    if (honeypot && honeypot.value) return;
+
+    var emailInput = document.getElementById('quiz-email-input');
+    var emailError = document.getElementById('quiz-email-error');
+    var submitBtn = document.getElementById('quiz-email-submit');
+    var email = emailInput ? emailInput.value.trim() : '';
+    var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email || !pattern.test(email)) {
+      if (emailError) emailError.textContent = 'Please enter a valid email address.';
+      return;
+    }
+
+    if (emailError) emailError.textContent = '';
+    if (!submitBtn) return;
+
+    var originalText = submitBtn.textContent;
+    var tradeName = getTradeName();
+
+    if (QUIZ_EMAIL_CONFIG.formspreeEndpoint.indexOf('YOURID') !== -1) {
+      window.location.href = 'mailto:?subject=' + encodeURIComponent(tradeName + ' Career Roadmap Request') + '&body=' + encodeURIComponent('Send me the free ' + tradeName + ' Career Roadmap. Email: ' + email);
+      return;
+    }
+
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    fetch(QUIZ_EMAIL_CONFIG.formspreeEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, trade: tradeName })
+    })
+      .then(function () {
+        emailSubmitted = true;
+        var form = document.getElementById('quiz-email-form');
+        if (form) form.hidden = true;
+        var successTrade = document.getElementById('quiz-email-success-trade');
+        if (successTrade) successTrade.textContent = tradeName;
+        var successEl = document.getElementById('quiz-email-success');
+        if (successEl) successEl.hidden = false;
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      })
+      .catch(function () {
+        window.location.href = 'mailto:?subject=' + encodeURIComponent(tradeName + ' Career Roadmap Request') + '&body=' + encodeURIComponent('Send me the free ' + tradeName + ' Career Roadmap. Email: ' + email);
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
+  }
+
+  function resetEmailCapture() {
+    emailSubmitted = false;
+    var capture = document.getElementById('quiz-email-capture');
+    if (capture) capture.hidden = true;
+    var form = document.getElementById('quiz-email-form');
+    if (form) {
+      form.hidden = false;
+      form.reset();
+    }
+    var success = document.getElementById('quiz-email-success');
+    if (success) success.hidden = true;
+    var error = document.getElementById('quiz-email-error');
+    if (error) error.textContent = '';
+    var submitBtn = document.getElementById('quiz-email-submit');
+    if (submitBtn) {
+      submitBtn.textContent = 'Send Me the Roadmap';
+      submitBtn.disabled = false;
+    }
+  }
+
+  function getTradeName() {
+    var tradeEl = document.getElementById('quiz-results-trade');
+    if (!tradeEl) return '';
+    return tradeEl.getAttribute('data-trade') || tradeEl.textContent.replace('You\u2019re built for ', '').replace('!', '');
   }
 
   function share() {
