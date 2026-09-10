@@ -1,8 +1,8 @@
 # TradeLift — Progress Tracker
 
-**Last updated:** Thursday, September 10, 2026 — 12:19 PM EDT (snapshot per user request)
+**Last updated:** Thursday, September 10, 2026 — 7:15 PM EDT (resume session)
 
-## Status: 🟡 NEW WAVE READY — DEPLOY BLOCKED ON CREDENTIALS
+## Status: 🟢 QA-COMPLETE (Funnels + Share Cards Reviewed & Fixed) — DEPLOY BLOCKED ON CREDENTIALS
 
 Live site: https://tradelift.is-a.dev/ (running the PRE-wave build until push unblocks).
 
@@ -25,9 +25,10 @@ Live site: https://tradelift.is-a.dev/ (running the PRE-wave build until push un
 - [x] Integration: uniform nav (Home/Trades/Getting Started/Resources/Blog/Quiz), hero quiz CTA, blog teaser, callouts, canonicals on all pages, sitemap 8 URLs
 - [x] QA: Rogers (Pass 1, 20 findings) + Romanoff (Pass 2, independent functional, 7 findings) — all fixed by Shuri (21 fixes) and re-verified
 - [x] NEWS: Fury Wave 2 — quiz-results email capture funnel (docs/conversion-funnel.md) built, verified, awaiting review-pass before bundling into deploy
+- [x] **RESUME SESSION (2026-09-10 ~7 PM):** Rogers Pass-1 funnel findings applied by Shuri (M1 email label, m1-m5 dead code/guard/print/doc). Rogers Pass-1 on Lang's Wave-3 share cards (0 critical, 2 major, 7 minor) → fixes by Shuri (preview via canvas, iOS failure fallback + SVG new-tab, no leak, async disabled state, fixed px fonts, escaping, aria, doc typo). Romanoff Pass 2 (independent, jsdom 36-assertion harness) → 2 major (double-submit-in-flight, fetch HTTP-status ignored), 1 minor (stale label restore), 2 info (aria-hidden-on-visible, capture analytics beacon) → all fixed by Shuri. Final re-verify green (node --check ×3, CSS braces 63/63 + 206/206 + 48/48, html.parser clean ×9 pages, 0 dup IDs). Committed. **Deploy still blocked on creds.**
 
 ### BLOCKED
-- [ ] **Push to production (`git push pages main`)** — environment GITHUB_TOKEN is Codespaces auto-token (metadata=read only). Needs user PAT (`repo`+`workflow`) OR codespace `repo` scope OR manual push by user. Code committed locally as `1950774` (+ Fury funnel files uncommitted).
+- [ ] **Push to production (`git push pages main`)** — environment GITHUB_TOKEN is Codespaces auto-token (metadata=read only). Needs user PAT (`repo`+`workflow`) OR codespace `repo` scope OR manual push by user. **All wave-3 work (funnel + share cards + both QA passes) committed locally, NOT pushed.**
 
 ## The Fork/PAT History (why production is a separate repo)
 - GitHub refused Pages on the original fork. Fresh non-fork repo created; Pages enabled via API + classic PAT (`repo`+`workflow`); deploy workflow succeeds on push.

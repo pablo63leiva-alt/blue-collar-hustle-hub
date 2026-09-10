@@ -70,6 +70,8 @@ Each roadmap is a personalized PDF (or HTML email) delivered via email, specific
 - **Placeholder mode:** Currently falls back to `mailto:` with trade name in subject line (same pattern as newsletter). Replace `YOURID` in `js/quiz.js` → `QUIZ_EMAIL_CONFIG` with a real Formspree ID.
 - **Future upgrade:** Generate per-trade PDFs in `/assets/roadmaps/` and link them in the success email or Formspree redirect.
 
+> **Clarifying note:** The current implementation reveals the quiz results first and shows the email capture **after** the results ("reveal + upsell"). Results are **NOT gated behind email**. Gating results behind email is a **future** A/B test variant (Variant B of Test 2), not the current behavior.
+
 ---
 
 ## Automated Email Sequence

@@ -282,7 +282,6 @@
     progressFill.style.width = pct + '%';
     progressText.textContent = 'Question ' + num + ' of ' + total;
     questionEl.textContent = q.q;
-    questionEl.id = 'quiz-question';
 
     optionsEl.innerHTML = '';
     optionsEl.setAttribute('role', 'radiogroup');
@@ -407,7 +406,6 @@
 
   function retake() {
     currentQuestion = 0;
-    locked = false;
     TRADES.forEach(function (t) {
       scores[t.name] = 0;
     });
@@ -416,14 +414,33 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  function trackCapture(trade, mode) {
+    var entry = { trade: trade, ts: Date.now() };
+    if (mode) entry.mode = mode;
+    document.dispatchEvent(new CustomEvent('quiz-email-captured', { detail: entry }));
+    try {
+      var key = 'tradelift_capture_events';
+      var list = [];
+      try {
+        list = JSON.parse(localStorage.getItem(key) || '[]') || [];
+      } catch (err) {
+        list = [];
+      }
+      if (!Array.isArray(list)) list = [];
+      list.push(entry);
+      localStorage.setItem(key, JSON.stringify(list.slice(-50)));
+    } catch (err) {}
+  }
+
   function handleEmailSubmit(e) {
     e.preventDefault();
+    var submitBtn = document.getElementById('quiz-email-submit');
+    if (emailSubmitted || (submitBtn && submitBtn.disabled)) return;
     var honeypot = document.querySelector('#quiz-email-form [name="_gotcha"]');
     if (honeypot && honeypot.value) return;
 
     var emailInput = document.getElementById('quiz-email-input');
     var emailError = document.getElementById('quiz-email-error');
-    var submitBtn = document.getElementById('quiz-email-submit');
     var email = emailInput ? emailInput.value.trim() : '';
     var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -439,7 +456,10 @@
     var tradeName = getTradeName();
 
     if (QUIZ_EMAIL_CONFIG.formspreeEndpoint.indexOf('YOURID') !== -1) {
+      trackCapture(tradeName, 'mailto');
       window.location.href = 'mailto:?subject=' + encodeURIComponent(tradeName + ' Career Roadmap Request') + '&body=' + encodeURIComponent('Send me the free ' + tradeName + ' Career Roadmap. Email: ' + email);
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
       return;
     }
 
@@ -451,8 +471,15 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, trade: tradeName })
     })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('Formspree ' + res.status);
+        }
+        return res;
+      })
       .then(function () {
         emailSubmitted = true;
+        trackCapture(tradeName);
         var form = document.getElementById('quiz-email-form');
         if (form) form.hidden = true;
         var successTrade = document.getElementById('quiz-email-success-trade');
@@ -463,6 +490,7 @@
         submitBtn.disabled = false;
       })
       .catch(function () {
+        trackCapture(tradeName, 'mailto');
         window.location.href = 'mailto:?subject=' + encodeURIComponent(tradeName + ' Career Roadmap Request') + '&body=' + encodeURIComponent('Send me the free ' + tradeName + ' Career Roadmap. Email: ' + email);
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;

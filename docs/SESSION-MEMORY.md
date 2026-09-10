@@ -1,6 +1,6 @@
 # TradeLift — Master Project Memory & Session Record
 
-**Snapshot timestamp:** Thursday, September 10, 2026 — 12:19 PM EDT (America/New_York)
+**Snapshot timestamp:** Thursday, September 10, 2026 — 7:15 PM EDT (America/New_York)
 **Owner:** Pablo (user) + Jarvis (PM/AI)
 **Mission:** Grow TradeLift traffic now; generate $50,000 revenue (~103 days, deadline ≈ December 22, 2026).
 
@@ -107,6 +107,19 @@
 - Sitemap: 8 URLs, populated lastmod, idempotent generator.
 - **Undeployed:** the `pages` push is blocked pending credentials. Live site still runs the pre-wave build.
 
+### 7:15 PM RESUMED SESSION (2026-09-10) — WAVE 3 FULL QA COMPLETE
+**Queue from 12:19 PM snapshot executed:**
+- **Shuri:** applied Rogers Pass-1 funnel fixes — M1 (quiz.html :124 `visually-hidden` `<label for="quiz-email-input">`), m1 (removed dead `questionEl.id` in quiz.js renderQuestion), m2 (removed redundant `locked=false` in retake), m3 (early-return `emailSubmitted` guard), m4 (print block no longer hides `.quiz-section` — results printable), m5 (conversion-funnel.md note: reveal + upsell, results NOT gated). ✅
+- **Rogers Pass 1 (Lang Share Cards):** 0 critical / 2 major / 7 minor — M1 on-page preview clipped (1200px card cropped in 600px shell), M2 iOS Safari foreignObject canvas flakiness + no try/catch; m1 unhandled rejection leaks card, m2 silent failures, m3 button not disabled during async gen, m4 `clamp(vw)` non-deterministic PNG, m5 raw innerHTML interpolation, m6 preview double-announced (aria), m7 `###utm_term` doc typo.
+- **Shuri:** fixed all 9 — preview now rendered via canvas (`toDataURL` img, `img` = downloaded PNG), scaled inline fallback on canvas failure, `buildSVGDataUri` helper + `window.open(svg,'_blank')` manual save fallback, `removeCardEl` no-leak + `.catch`, button disabled + "Generating..." during, fixed px (44/56px) fonts, `esc()` for name/salary/icon, `aria-hidden` removed on reveal, doc heading space. jsdom harness 35/35. ✅
+- **Romanoff Pass 2 (independent, jsdom 36-assertion harness in /tmp/opencode/qa2):** reproduced flows 1-11; 2 MAJOR (M1 double-submit-while-in-flight → 2 POSTs; M2 `fetch` ignores HTTP status → 400/500 shows success card), 1 MINOR (stale label after retry-in-failure-window), 2 INFO (aria-hidden on visible preview; no capture analytics signal). → **Shuri fixes:** top-of-handler guard (`emailSubmitted || submitBtn.disabled`), synchronous disable before `fetch`, `res.ok` check routing non-2xx to mailto fallback, `DEFAULT_DOWNLOAD_LABEL` constant, aria-hidden toggling in renderPreview, `trackCapture()` dispatch `quiz-email-captured` CustomEvent + localStorage `tradelift_capture_events` (cap 50, exception-safe). ✅
+- **PM re-verify:** `node --check` main/quiz/quiz-share OK; CSS braces 206/206 + 63/63 + 48/48; html.parser clean ×9 pages; 0 duplicate IDs. **Committed to origin (dev copy).** 
+- **Deploy still BLOCKED on credentials** (see §5) — wave-3 work NOT on production.
+
+### VERIFIED AS OF 7:15 PM SNAPSHOT
+- Funnel: label a11y, honeypot, validation, mailto fallback (placeholder), real POST w/ HTTP-status handling, double-submit blocked (2 verified paths), skip/retake resets, success card, capture beacon (event + localStorage).
+- Share cards: preview = downloaded PNG (or scaled fallback), download disabled-during-gen, failure feedback + SVG new-tab manual save, zero leak, deterministic fonts, escaped interpolation, no listener accumulation (3 sequential downloads = exactly 3), filename per-trade slug.
+
 ---
 
 ## 5. Deploy Playbook (production)
@@ -162,9 +175,9 @@
 
 ### WAVE 3 (12:19 PM SNAPSHOT BUILD — Lang + next reviews)
 - **Lang:** built branded per-trade share cards — js/quiz-share.js (SVG foreignObject→canvas PNG download, "Download my result card!" button on quiz results), quiz.html (preview container + script), css/quiz.css (+32 scoped lines), docs/social-sharing.md (captions/hashtags/UTM). Verified (node --check, html.parser, braces, no dup IDs). ✅
-- **Rogers (Pass 1 on Fury funnel):** 0 critical, 1 major (M1: quiz.html :124 email input missing `<label>`/aria-label — WCAG fail, FIX WITH .visually-hidden label), 5 minor (m1 dead questionEl.id reset quiz.js:285; m2 redundant locked=false retake() quiz.js:408; m3 emailSubmitted flag unused → add guard in handleEmailSubmit; m4 print media hides results parent in css/quiz.css:386-389 → blank printed page; m5 doc-level note on gating results in conversion-funnel.md). **Shuri fixes NOT yet applied — queue for next session.**
-- Romanoff Pass 2 on Fury funnel: NOT RUN yet → queue for next session (AGENTS.md two-pass rule).
-- **Deploy still blocked** on credentials (push to `pages`). Commit `1950774` + funnel + share-card work staged/committed in wh, but NOT pushed to production.
+- **Rogers (Pass 1 on Fury funnel):** 0 critical, 1 major (M1: quiz.html :124 email input missing `<label>`/aria-label — WCAG fail, FIX WITH .visually-hidden label), 5 minor (m1 dead questionEl.id reset quiz.js:285; m2 redundant locked=false retake() quiz.js:408; m3 emailSubmitted flag unused → add guard in handleEmailSubmit; m4 print media hides results parent in css/quiz.css:386-389 → blank printed page; m5 doc-level note on gating results in conversion-funnel.md). **→ APPLIED by Shuri in 7:15 PM session. ✅**
+- **Romanoff Pass 2 on Fury funnel:** **COMPLETED in 7:15 PM session** (with share cards) — 2 MAJOR (double-submit-in-flight, fetch HTTP-status ignored), 1 MINOR (stale download-label restore), 2 INFO (aria-hidden-on-visible preview; missing capture analytics). **→ ALL FIXED by Shuri. ✅**
+- **Deploy still blocked** on credentials (push to `pages`). ALL wave-3 work (funnel + share cards + QA fixes) committed to origin (dev copy) as of 7:15 PM 2026-09-10, but NOT pushed to production.
 
 ## 8. Identity Notes
 

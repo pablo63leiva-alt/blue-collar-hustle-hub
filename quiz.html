@@ -121,6 +121,7 @@
                                     <div style="position:absolute;left:-9999px" aria-hidden="true">
                                         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
                                     </div>
+                                    <label for="quiz-email-input" class="visually-hidden">Email address</label>
                                     <input type="email" id="quiz-email-input" class="quiz-email-input" placeholder="Enter your email" required autocomplete="email" aria-describedby="quiz-email-error">
                                     <button type="submit" class="btn btn-primary quiz-email-submit" id="quiz-email-submit">Send Me the Roadmap</button>
                                 </form>
@@ -133,7 +134,7 @@
                                 <p class="quiz-email-success-text">Your <span id="quiz-email-success-trade"></span> roadmap is on its way.</p>
                             </div>
                         </div>
-                        <div id="quiz-share-preview" class="quiz-share-preview" hidden></div>
+                        <div id="quiz-share-preview" class="quiz-share-preview" hidden aria-hidden="true"></div>
                         <div class="quiz-results-cta">
                             <a href="trades.html" class="btn btn-primary">Explore Trades</a>
                             <button type="button" class="btn btn-outline" id="quiz-share-btn">Share Your Result</button>

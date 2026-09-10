@@ -3,9 +3,19 @@
 
   var CARD_W = 1200;
   var CARD_H = 630;
+  var DEFAULT_DOWNLOAD_LABEL = 'Download My Result Card';
   var previewEl = null;
   var downloadBtn = null;
   var currentTrade = null;
+
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
   function readCurrentResult() {
     var tradeEl = document.getElementById('quiz-results-trade');
@@ -30,16 +40,16 @@
 
       '<div style="position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;">' +
         '<div style="flex:1;">' +
-          '<div style="font-size:5rem;line-height:1;margin-bottom:20px;">' + (data.icon || '') + '</div>' +
+          '<div style="font-size:5rem;line-height:1;margin-bottom:20px;">' + esc(data.icon || '') + '</div>' +
           '<div style="font-size:1.1rem;font-weight:600;color:#ff6b00;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">Your Trade Match</div>' +
-          '<div style="font-size:clamp(2.4rem,4vw,3.2rem);font-weight:900;color:#ffffff;line-height:1.05;margin-bottom:6px;">I\'m built for</div>' +
-          '<div style="font-size:clamp(2.8rem,5vw,4rem);font-weight:900;color:#ff6b00;line-height:1.05;margin-bottom:16px;">' + data.name + '!</div>' +
+          '<div style="font-size:44px;font-weight:900;color:#ffffff;line-height:1.05;margin-bottom:6px;">I\'m built for</div>' +
+          '<div style="font-size:56px;font-weight:900;color:#ff6b00;line-height:1.05;margin-bottom:16px;">' + esc(data.name) + '!</div>' +
           '<div style="display:inline-block;padding:8px 22px;background:rgba(255,193,7,0.1);border:1px solid rgba(255,193,7,0.3);border-radius:50px;font-size:1.15rem;font-weight:700;color:#ffc107;">' +
-            (data.salary ? 'Average Salary: ' + data.salary : '') +
+            (data.salary ? 'Average Salary: ' + esc(data.salary) : '') +
           '</div>' +
         '</div>' +
         '<div style="flex-shrink:0;width:180px;height:180px;border-radius:16px;background:rgba(255,107,0,0.08);border:1px solid rgba(255,107,0,0.2);display:flex;align-items:center;justify-content:center;font-size:6rem;align-self:center;">' +
-          (data.icon || '') +
+          esc(data.icon || '') +
         '</div>' +
       '</div>' +
 
@@ -57,44 +67,111 @@
     return d;
   }
 
+  function buildSVGDataUri(cardEl) {
+    var svg =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="' + CARD_W + '" height="' + CARD_H + '">' +
+        '<foreignObject width="100%" height="100%">' +
+          '<div xmlns="http://www.w3.org/1999/xhtml" style="width:' + CARD_W + 'px;height:' + CARD_H + 'px;">' +
+            cardEl.innerHTML +
+          '</div>' +
+        '</foreignObject>' +
+      '</svg>';
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+
   function renderToCanvas(cardEl) {
     return new Promise(function (resolve) {
       var canvas = document.createElement('canvas');
       canvas.width = CARD_W;
       canvas.height = CARD_H;
-      var ctx = canvas.getContext('2d');
-      var svgData =
-        '<svg xmlns="http://www.w3.org/2000/svg" width="' + CARD_W + '" height="' + CARD_H + '">' +
-          '<foreignObject width="100%" height="100%">' +
-            '<div xmlns="http://www.w3.org/1999/xhtml" style="width:' + CARD_W + 'px;height:' + CARD_H + 'px;">' +
-              cardEl.innerHTML +
-            '</div>' +
-          '</foreignObject>' +
-        '</svg>';
       var img = new Image();
       img.onload = function () {
-        ctx.drawImage(img, 0, 0, CARD_W, CARD_H);
-        resolve(canvas);
+        var ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(null);
+          return;
+        }
+        try {
+          ctx.drawImage(img, 0, 0, CARD_W, CARD_H);
+          resolve(canvas);
+        } catch (err) {
+          resolve(null);
+        }
       };
       img.onerror = function () {
         resolve(null);
       };
-      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgData);
+      img.src = buildSVGDataUri(cardEl);
     });
   }
 
-  function triggerDownload(canvas) {
-    canvas.toBlob(function (blob) {
-      if (!blob) return;
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = 'tradelift-' + (currentTrade ? currentTrade.name.toLowerCase().replace(/\s+/g, '-') : 'result') + '-card.png';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-    }, 'image/png');
+  function triggerDownload(canvas, onFail) {
+    if (typeof canvas.toBlob !== 'function') {
+      if (onFail) onFail();
+      return;
+    }
+    try {
+      canvas.toBlob(function (blob) {
+        if (!blob) {
+          if (onFail) onFail();
+          return;
+        }
+        try {
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'tradelift-' + (currentTrade ? currentTrade.name.toLowerCase().replace(/\s+/g, '-') : 'result') + '-card.png';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        } catch (err) {
+          if (onFail) onFail();
+        }
+      }, 'image/png');
+    } catch (err) {
+      if (onFail) onFail();
+    }
+  }
+
+  function removeCardEl(cardEl) {
+    if (cardEl && cardEl.parentNode) {
+      cardEl.parentNode.removeChild(cardEl);
+    }
+  }
+
+  function showFeedbackFail(svgUri) {
+    var btn = downloadBtn || document.getElementById('quiz-download-btn');
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Couldn't generate \u2014 try again";
+      setTimeout(function () {
+        btn.textContent = DEFAULT_DOWNLOAD_LABEL;
+      }, 2000);
+    }
+    if (svgUri) {
+      window.open(svgUri, '_blank');
+    }
+  }
+
+  function renderScaledFallback(wrapper, cardEl) {
+    var containerW = wrapper.clientWidth;
+    if (!containerW && previewEl) {
+      containerW = previewEl.clientWidth;
+    }
+    if (!containerW) {
+      containerW = CARD_W;
+    }
+    var scale = containerW / CARD_W;
+    var fb = document.createElement('div');
+    fb.className = 'quiz-share-preview-fallback';
+    fb.style.width = CARD_W + 'px';
+    fb.style.height = CARD_H + 'px';
+    fb.style.transform = 'scale(' + scale + ')';
+    fb.style.transformOrigin = '0 0';
+    fb.innerHTML = cardEl.innerHTML;
+    wrapper.appendChild(fb);
+    wrapper.style.height = Math.round(CARD_H * scale) + 'px';
   }
 
   function renderPreview(data) {
@@ -107,25 +184,75 @@
 
     var wrapper = document.createElement('div');
     wrapper.className = 'quiz-share-preview-inner';
-    wrapper.style.cssText = 'width:100%;max-width:600px;margin:0 auto;overflow:hidden;border-radius:8px;border:1px solid #2a2a2a;aspect-ratio:1200/630;';
-    wrapper.innerHTML = cardEl.innerHTML;
 
     previewEl.innerHTML = '';
     previewEl.appendChild(wrapper);
     previewEl.hidden = false;
+    previewEl.removeAttribute('aria-hidden');
 
-    document.body.removeChild(cardEl);
+    renderToCanvas(cardEl).then(function (canvas) {
+      var rendered = false;
+      if (canvas) {
+        try {
+          var img = document.createElement('img');
+          img.className = 'quiz-share-preview-img';
+          img.alt = 'Your TradeLift result card preview';
+          img.src = canvas.toDataURL('image/png');
+          wrapper.appendChild(img);
+          rendered = true;
+        } catch (err) {}
+      }
+      if (!rendered) {
+        renderScaledFallback(wrapper, cardEl);
+      }
+      removeCardEl(cardEl);
+    }).catch(function () {
+      renderScaledFallback(wrapper, cardEl);
+      removeCardEl(cardEl);
+    });
   }
 
   function handleDownload() {
     if (!currentTrade) return;
 
     var cardEl = buildCardHTML(currentTrade);
-    renderToCanvas(cardEl).then(function (canvas) {
-      document.body.removeChild(cardEl);
-      if (canvas) {
-        triggerDownload(canvas);
+    var svgUri = buildSVGDataUri(cardEl);
+    var btn = downloadBtn || document.getElementById('quiz-download-btn');
+
+    function restore() {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = DEFAULT_DOWNLOAD_LABEL;
       }
+    }
+
+    function fail() {
+      removeCardEl(cardEl);
+      showFeedbackFail(svgUri);
+    }
+
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Generating...';
+    }
+
+    renderToCanvas(cardEl).then(function (canvas) {
+      var failed = false;
+      function onFail() {
+        failed = true;
+        fail();
+      }
+      if (canvas) {
+        triggerDownload(canvas, onFail);
+        if (!failed) {
+          removeCardEl(cardEl);
+          restore();
+        }
+      } else {
+        onFail();
+      }
+    }).catch(function () {
+      fail();
     });
   }
 

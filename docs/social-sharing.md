@@ -107,7 +107,7 @@ https://tradelift.is-a.dev/quiz.html
 | Threads post | `https://tradelift.is-a.dev/quiz.html?utm_source=threads&utm_medium=social&utm_campaign=quiz_share&utm_content=plumber` |
 | Snapchat | `https://tradelift.is-a.dev/quiz.html?utm_source=snapchat&utm_medium=social&utm_campaign=quiz_share&utm_content=electrician` |
 
-###utm_term (optional, for A/B testing captions)
+### utm_term (optional, for A/B testing captions)
 Add `&utm_term={caption_variant}` when testing different caption styles. Example: `&utm_term=emoji_heavy` vs `&utm_term=clean`.
 
 ### Tracking in GA4 / Plausible
