@@ -30,7 +30,7 @@
   /* ============================================
      Trade Category Filtering
      ============================================ */
-  const filterButtons = document.query.querySelectorAll('.filter-btn');
+  const filterButtons = document.querySelectorAll('.filter-btn');
   const tradeCards = document.querySelectorAll('.trade-card[data-category]');
 
   function filterTrades(category) {
@@ -60,30 +60,57 @@
   }
 
   /* ============================================
-     Newsletter Form (placeholder handler)
+     Newsletter Form (Formspree / mailto fallback)
      ============================================ */
-  const newsletterForm = document.querySelector('.newsletter-form');
+  var NEWSLETTER_CONFIG = {
+    formspreeEndpoint: 'https://formspree.io/f/YOURID'
+  };
+
+  var newsletterForm = document.querySelector('.newsletter-form');
 
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      const emailInput = newsletterForm.querySelector('.newsletter-input');
-      const email = emailInput ? emailInput.value.trim() : '';
 
-      if (!email || !newsletterForm.checkValidity()) {
+      var honeypot = newsletterForm.querySelector('[name="_gotcha"]');
+      if (honeypot && honeypot.value) return;
+
+      var emailInput = newsletterForm.querySelector('.newsletter-input');
+      var email = emailInput ? emailInput.value.trim() : '';
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!email || !emailPattern.test(email)) return;
+
+      var button = newsletterForm.querySelector('button[type="submit"]');
+      if (!button) return;
+      var originalText = button.textContent;
+
+      if (NEWSLETTER_CONFIG.formspreeEndpoint.indexOf('YOURID') !== -1) {
+        window.location.href = 'mailto:?subject=' + encodeURIComponent('Subscribe me to TradeLift') + '&body=' + encodeURIComponent('Please add ' + email + ' to the TradeLift newsletter.');
         return;
       }
 
-      const button = newsletterForm.querySelector('button[type="submit"]');
-      const originalText = button.textContent;
-      button.textContent = 'Thanks for subscribing!';
+      button.textContent = 'Subscribing...';
       button.disabled = true;
-      newsletterForm.reset();
 
-      setTimeout(function () {
-        button.textContent = originalText;
-        button.disabled = false;
-      }, 3000);
+      fetch(NEWSLETTER_CONFIG.formspreeEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+        .then(function () {
+          newsletterForm.reset();
+          button.textContent = "You're on the list! Check your inbox to confirm.";
+          setTimeout(function () {
+            button.textContent = originalText;
+            button.disabled = false;
+          }, 4000);
+        })
+        .catch(function () {
+          window.location.href = 'mailto:?subject=' + encodeURIComponent('Subscribe me to TradeLift') + '&body=' + encodeURIComponent('Please add ' + email + ' to the TradeLift newsletter.');
+          button.textContent = originalText;
+          button.disabled = false;
+        });
     });
   }
 
@@ -108,7 +135,7 @@
         <div class="exit-modal-icon" aria-hidden="true">🎁</div>
         <h2 id="exit-modal-title" class="exit-modal-title">Don't Leave Empty-Handed!</h2>
         <p class="exit-modal-subtitle">Grab our free PDF: <strong>5 Trades Paying $60K+ with No Degree</strong></p>
-        <form class="exit-modal-form" action="https://formspree.io/f/placeholder" method="POST">
+        <form class="exit-modal-form" action="#" method="POST">
           <input type="hidden" name="_next" value="/assets/trade-lift-5-trades.pdf">
           <div class="exit-modal-form-group">
             <label for="exit-modal-email" class="visually-hidden">Email address</label>
@@ -122,6 +149,9 @@
               autocomplete="email"
               aria-describedby="exit-modal-privacy"
             >
+            <div style="position:absolute;left:-9999px" aria-hidden="true">
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+            </div>
             <button type="submit" class="btn btn-primary exit-modal-submit">Get Free PDF</button>
           </div>
           <p id="exit-modal-privacy" class="exit-modal-privacy">We respect your privacy. Unsubscribe at any time.</p>
@@ -149,11 +179,13 @@
     // Focus trap
     const closeBtn = modal.querySelector('.exit-modal-close');
     const submitBtn = modal.querySelector('.exit-modal-submit');
-    const focusable = modal.querySelectorAll('button, input, a');
+    const focusable = Array.from(modal.querySelectorAll('button, input, a')).filter(function(el) {
+      return !el.classList.contains('hidden') && el.getAttribute('tabindex') !== '-1';
+    });
     const firstFocusable = focusable[0];
     const lastFocusable = focusable[focusable.length - 1];
     
-    firstFocusable?.focus();
+    if (firstFocusable) firstFocusable.focus();
     
     modal.addEventListener('keydown', function trapFocus(e) {
       if (e.key === 'Tab') {
@@ -181,25 +213,44 @@
 
   function handleExitModalSubmit(e) {
     e.preventDefault();
-    const form = e.target;
-    const emailInput = form.querySelector('.exit-modal-input');
-    const email = emailInput.value.trim();
-    
-    if (!email || !form.checkValidity()) return;
-    
-    // Simulate form submission success
-    const submitBtn = form.querySelector('.exit-modal-submit');
-    const originalText = submitBtn.textContent;
+    var form = e.target;
+    var honeypot = form.querySelector('[name="_gotcha"]');
+    if (honeypot && honeypot.value) return;
+
+    var emailInput = form.querySelector('.exit-modal-input');
+    var email = emailInput ? emailInput.value.trim() : '';
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email)) return;
+
+    var submitBtn = form.querySelector('.exit-modal-submit');
+    if (!submitBtn) return;
+    var originalText = submitBtn.textContent;
+
+    if (NEWSLETTER_CONFIG.formspreeEndpoint.indexOf('YOURID') !== -1) {
+      window.location.href = 'mailto:?subject=' + encodeURIComponent('Subscribe me to TradeLift') + '&body=' + encodeURIComponent('Please add ' + email + ' to the TradeLift newsletter.');
+      return;
+    }
+
     submitBtn.textContent = 'Subscribing...';
     submitBtn.disabled = true;
-    
-    setTimeout(() => {
-      form.classList.add('hidden');
-      const success = form.parentElement.querySelector('.exit-modal-success');
-      if (success) success.classList.remove('hidden');
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    }, 800);
+
+    fetch(NEWSLETTER_CONFIG.formspreeEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+      .then(function () {
+        form.classList.add('hidden');
+        var success = form.parentElement.querySelector('.exit-modal-success');
+        if (success) success.classList.remove('hidden');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      })
+      .catch(function () {
+        window.location.href = 'mailto:?subject=' + encodeURIComponent('Subscribe me to TradeLift') + '&body=' + encodeURIComponent('Please add ' + email + ' to the TradeLift newsletter.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
   }
 
   // Initialize exit-intent modal
@@ -260,8 +311,9 @@
      OneSignal Web Push (Free Tier)
      ============================================ */
   function initOneSignal() {
-    // Only initialize if not already loaded
     if (window.OneSignal) return;
+    var ONESIGNAL_APP_ID = 'YOUR_ONESIGNAL_APP_ID';
+    if (ONESIGNAL_APP_ID.indexOf('YOUR_') !== -1) return;
     
     // Check if user dismissed before
     if (localStorage.getItem(ONESIGNAL_DISMISSED_KEY)) return;

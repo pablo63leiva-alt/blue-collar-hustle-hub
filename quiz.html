@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Which Trade Is For You? Free Trade Career Quiz | TradeLift</title>
+    <meta name="description" content="Take the free TradeLift quiz and discover which skilled trade career fits your personality, strengths, and goals. Electrician, welder, plumber, and more — find your path in 2 minutes.">
+    <meta name="keywords" content="trade career quiz, which trade is for me, skilled trades quiz, electrician quiz, welding career, plumber career, HVAC career, trade career test">
+    <meta name="author" content="TradeLift">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Which Trade Is For You? Free Career Quiz | TradeLift">
+    <meta property="og:description" content="Take a 2-minute quiz to discover which skilled trade career fits you best. No student debt, high pay, job security — find your path.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tradelift.is-a.dev/quiz.html">
+    <meta property="og:image" content="https://tradelift.is-a.dev/img/og-image.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Which Trade Is For You? Free Career Quiz | TradeLift">
+    <meta name="twitter:description" content="Take a 2-minute quiz to discover which skilled trade career fits you best.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://tradelift.is-a.dev/quiz.html">
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        "name": "Which Trade Is For You?",
+        "description": "Take a 2-minute quiz to discover which skilled trade career fits your personality and strengths.",
+        "url": "https://tradelift.is-a.dev/quiz.html",
+        "provider": {
+            "@type": "Organization",
+            "name": "TradeLift",
+            "url": "https://tradelift.is-a.dev"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Skilled Trade Careers"
+        },
+        "educationalLevel": "Beginner",
+        "inLanguage": "en"
+    }
+    </script>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span class="logo-icon">⚒️</span>
+                <span class="logo-text">TradeLift</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="trades.html" class="nav-link">Trades</a></li>
+                    <li class="nav-item"><a href="getting-started.html" class="nav-link">Getting Started</a></li>
+                    <li class="nav-item"><a href="resources.html" class="nav-link">Resources</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="quiz.html" class="nav-link active" aria-current="page">Quiz</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Quiz Hero -->
+        <section class="quiz-hero" aria-labelledby="quiz-hero-heading">
+            <div class="container">
+                <h1 id="quiz-hero-heading" class="quiz-hero-title">Which Trade Is For You?</h1>
+                <p class="quiz-hero-subtitle">Answer 10 quick questions and we'll match you with the skilled trade that fits your personality, strengths, and goals. Takes about 2 minutes.</p>
+            </div>
+        </section>
+
+        <!-- Quiz Container -->
+        <section class="quiz-section" aria-label="Trade career quiz">
+            <div class="container">
+                <div class="quiz-wrapper" id="quiz-wrapper">
+
+                    <!-- Progress Bar -->
+                    <div class="quiz-progress" id="quiz-progress">
+                        <div class="quiz-progress-bar">
+                            <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+                        </div>
+                        <span class="quiz-progress-text" id="quiz-progress-text">Question 1 of 10</span>
+                    </div>
+
+                    <!-- Question Area -->
+                    <div class="quiz-question-area" id="quiz-question-area">
+                        <h2 class="quiz-question" id="quiz-question"></h2>
+                        <div class="quiz-options" id="quiz-options"></div>
+                    </div>
+
+                    <!-- Results Area -->
+                    <div class="quiz-results" id="quiz-results" hidden>
+                        <div class="quiz-results-badge" id="quiz-results-badge"></div>
+                        <h2 class="quiz-results-trade" id="quiz-results-trade"></h2>
+                        <div class="quiz-results-salary" id="quiz-results-salary"></div>
+                        <ul class="quiz-results-reasons" id="quiz-results-reasons"></ul>
+                        <div class="quiz-results-cta">
+                            <a href="trades.html" class="btn btn-primary">Explore Trades</a>
+                            <button type="button" class="btn btn-outline" id="quiz-share-btn">Share Your Result</button>
+                            <button type="button" class="btn btn-secondary" id="quiz-retake-btn">Retake Quiz</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <span class="logo-icon">⚒️</span>
+                        <span class="logo-text">TradeLift</span>
+                    </a>
+                    <p class="footer-tagline">Your Future in the Trades Starts Here</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="trades.html">Trades</a></li>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="quiz.html">Find Your Trade Quiz</a></li>
+                        <li><a href="badge.html">Email Badge</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h3 class="footer-heading">Connect With Us</h3>
+                    <ul class="social-links">
+                        <li>
+                            <a href="#" aria-label="Follow us on Facebook" class="social-link">
+                                <span aria-hidden="true">📘</span>
+                                <span class="visually-hidden">Facebook</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Follow us on Instagram" class="social-link">
+                                <span aria-hidden="true">📷</span>
+                                <span class="visually-hidden">Instagram</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Follow us on YouTube" class="social-link">
+                                <span aria-hidden="true">🎬</span>
+                                <span class="visually-hidden">YouTube</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Follow us on TikTok" class="social-link">
+                                <span aria-hidden="true">🎵</span>
+                                <span class="visually-hidden">TikTok</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 TradeLift. All rights reserved.</p>
+                <p class="footer-note">Built for the next generation of skilled tradespeople.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js" defer></script>
+    <script src="js/quiz.js" defer></script>
+
+</body>
+</html>
