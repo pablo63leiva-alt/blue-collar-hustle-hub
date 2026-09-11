@@ -1,8 +1,8 @@
 # TradeLift — Master Project Memory & Session Record
 
-**Snapshot timestamp:** Friday, September 11, 2026 (Content Wave 3 + deploy unblock)
+**Snapshot timestamp:** Friday, September 11, 2026, 8 AM EDT (WAVE 4 SHIPPED — site live, hard deadline Sun Sep 13)
 **Owner:** Pablo (user) + Jarvis (PM/AI)
-**Mission:** Grow TradeLift traffic now; generate $50,000 revenue (~103 days, deadline ≈ December 22, 2026).
+**Mission:** Grow TradeLift traffic now; generate $50,000 revenue (~102 days, deadline ≈ December 22, 2026).
 
 ---
 
@@ -17,19 +17,22 @@
 - **Sales angles:** Avoid student debt, high pay ($60K+), job security (750K open trade positions).
 - **Repository (this dir):** `/workspaces/https-github.com-github-codespaces-blank`
 
-### Pages (12 total)
+### Pages (15 total — 8 main + 7 blog posts)
 | File | Purpose |
 |---|---|
 | `index.html` | Homepage — hero, stats, featured trades, blog teaser, newsletter, footer |
 | `trades.html` | 12 trade careers with filters (All/Construction/Automotive/Industrial/Skilled Craft) |
 | `getting-started.html` | 5-step career roadmap, apprenticeships, certifications, tools, interview tips |
 | `resources.html` | Tools, certifications, YouTube channels, books, websites |
-| `blog.html` | Blog index — lists 6 posts |
+| `blog.html` | Blog index — lists 7 posts |
 | `tools.html` | Trade Tools Guide — 12 starter kits (tools, gear, and prep) |
 | `blog/how-to-become-an-electrician.html` | SEO post #1 |
 | `blog/trade-school-vs-college.html` | SEO post #2 |
 | `blog/best-trades-for-16-year-olds.html` | SEO post #3 |
 | `blog/is-welding-a-good-career.html` | SEO post #4 |
+| `blog/electrician-apprentice-salary.html` | SEO post #5 |
+| `blog/highest-paying-jobs-without-a-degree.html` | SEO post #6 |
+| `blog/is-trade-school-worth-it.html` | SEO post #7 (wave 4) |
 | `quiz.html` | "Which Trade Is For You?" interactive 10-question quiz + email capture funnel |
 | `badge.html` | Social/share badge (no nav; linked from footers) |
 
@@ -134,11 +137,19 @@
 - **Rogers Pass 1:** 0 critical / 3 major (FAQ-schema verbatim parity; 2 pre-existing title>60/desc>160 on how-to + trade-school) / 4 minor / ~5 info. **Romanoff Pass 2:** 1 major (electrician salary parity), 7 minor, 2 info. **Shuri** applied ALL (consolidated list): salary reconciled to $60K-$80K band, year-4 range unified, "4-5 year" normalized site-wide, CM "Experience + promotions", JSON-LD images → trade cards, FAQ visible↔schema verbatim ×6 posts, titles ≤60/desc ≤160 + one canonical headline per post everywhere, footer Blog links, radiation-therapist fix, tools.html WebPage JSON-LD + CTA demote + placeholder comment removed. ✅
 - **PM (Jarvis):** final re-verify green — html.parser clean 16/16, JSON-LD 0 errors, 0 dup IDs, internal links resolve, FAQ verbatim, JS `node --check` ×3, CSS braces 206/63/48, sitemap idempotent ×2 (13 URLs). **Deploy unblocked** via gh device flow (repo scope). Committed + pushed `pages` (production) + `origin` (dev).
 
+### CONTENT WAVE 4 — DEPLOYED (`4ba3e1b`) 2026-09-11
+- **Hawkeye:** `blog/is-trade-school-worth-it.html` — targets "is trade school worth it" long-tail. ✅
+- **Vision:** Full Twitter/X card metadata (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`) added across all posts + pages for richer social sharing. ✅
+- **Shuri:** PWA + PDF path repairs — `sw.js` asset path fixes, `manifest.json` corrections. ✅
+- **Rogers Pass 1 + Romanoff Pass 2:** Wave-4 changes reviewed; fixes incorporated in `4ba3e1b`. ✅
+- **PM (Jarvis):** Committed `4ba3e1b` + pushed to `pages` (production) + `origin` (dev, synced 2026-09-11 8 AM EDT). All remotes at same commit. ✅
+- **Baseline re-verified 2026-09-11 8 AM EDT:** JS `node --check` ×3 OK, CSS braces 206/64/48, 17 HTML files clean / 0 duplicate IDs, sitemap idempotent ×2 = 14 URLs, live HTTP 200 on /, /blog.html, /quiz.html, /tools.html, /blog/is-trade-school-worth-it.html.
+
 ---
 
 ## 5. Deploy Playbook (production)
 
-1. From repo root: `node scripts/generate-sitemap.js` (13 URLs) — also runs automatically in CI.
+1. From repo root: `node scripts/generate-sitemap.js` (14 URLs) — also runs automatically in CI.
 2. `git status` — confirm only intended files staged. NEVER commit secrets.
 3. Commit with concise message matching repo style (e.g., `feat: ...`).
 4. Push to **`pages`**: `git push pages main` → GitHub Actions auto-deploys (npm ci → sitemap → pa11y-ci → linkinator → configure-pages → upload → deploy).
@@ -164,9 +175,8 @@
 7. **Retargeting:** Meta pixel on quiz completion (Phase 2, per Fury).
 
 ### Action items / open decisions
-- [ ] **CRITICAL:** Unblock `pages` push (PAT / codespace scope) — Gate to every deploy.
-- [ ] **DONE (2026-09-11, Lang):** Quiz share-images per trade — 12 OG cards built (`scripts/generate-og-cards.js`, `img/og-<slug>.png`, idempotent, in-script PASS assert). Wired `blog/is-welding-a-good-career.html` + `blog/how-to-become-an-electrician.html` og:image. Docs: `docs/social-sharing.md` "OG cards" section.
-- [ ] User: create Formspree account → paste real form IDs in js/main.js NEWSLETTER_CONFIG + js/quiz.js QUIZ_EMAIL_CONFIG (currently `https://formspree.io/f/YOURID`).
+- [x] **CRITICAL:** Unblock `pages` push — DONE 2026-09-11 via gh device flow. All remotes synced.
+- [ ] **USER:** Create Formspree account → paste real form IDs in js/main.js NEWSLETTER_CONFIG + js/quiz.js QUIZ_EMAIL_CONFIG (currently `https://formspree.io/f/YOURID`)
 - [ ] Fury funnel wave: run a review pass (Rogers) before bundling into the next deploy commit.
 - [ ] Affiliate infrastructure pages (Hawkeye/Fury).
 - [ ] Quiz share-images per trade (Lang: 12 OG cards, result-tagged URLs `quiz.html?r=trade`).
@@ -183,7 +193,7 @@
 - HTML: python3 html.parser well-formedness per file.
 - JS: `node --check js/main.js js/quiz.js`
 - CSS brace balance: css/style.css, css/quiz.css, blog/blog-style.css
-- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 13 URLs)
+- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 14 URLs)
 - Live deploy: push to `pages`; CI runs pa11y-ci + linkinator automatically.
 - Time: `TZ=America/New_York date`
 

@@ -1,12 +1,20 @@
 # TradeLift — Progress Tracker
 
-**Last updated:** Friday, September 11, 2026 — Content Wave 3 + DEPLOY UNBLOCKED
+**Last updated:** Friday, September 11, 2026 (8 AM EDT) — WAVE 4 SHIPPED, hard deadline Sun Sep 13
 
-## Status: 🟢 QA-COMPLETE + READY FOR PRODUCTION — pushing to `pages` now
+## Status: 🟢 PRODUCTION LIVE + WAVE 4 DEPLOYED — all remotes synced @ `4ba3e1b`
 
-Live site: https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/ (pre-wave build until the push below lands; CI auto-deploys on push).
+Live site: https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/ (CI auto-deploys on push to `pages/main`).
+Verified 200 OK: /, /blog.html, /quiz.html, /tools.html, /blog/is-trade-school-worth-it.html. Sitemap 14 URLs, idempotent.
 
 ## Milestones
+
+### Done & Shipped — WAVE 4 (committed `4ba3e1b`, deployed to production, remotes synced)
+- [x] Blog post: `blog/is-trade-school-worth-it.html` — targets "is trade school worth it"
+- [x] Full Twitter/X card metadata across all posts (twitter:card, title, description, image)
+- [x] PWA + PDF path repairs (sw.js, manifest.json)
+- [x] All dual-QA fixes from prior waves consolidated and deployed
+- [x] Baseline re-verified 2026-09-11 8AM EDT: JS ×3 OK, CSS braces 206/64/48, 17 HTML clean / 0 dup IDs, sitemap idempotent 14 URLs, 200 OK on key pages
 
 ### Done & Shipped (published to production earlier)
 - [x] Project structure scaffolded
