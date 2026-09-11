@@ -89,7 +89,7 @@ Append these parameters to the quiz URL in every shared link to attribute traffi
 
 ### Base URL
 ```
-https://tradelift.is-a.dev/quiz.html
+https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/quiz.html
 ```
 
 ### UTM Parameters
@@ -101,11 +101,11 @@ https://tradelift.is-a.dev/quiz.html
 
 | Platform | Full URL |
 |----------|----------|
-| Instagram post | `https://tradelift.is-a.dev/quiz.html?utm_source=instagram&utm_medium=social&utm_campaign=quiz_share&utm_content=electrician` |
-| TikTok video | `https://tradelift.is-a.dev/quiz.html?utm_source=tiktok&utm_medium=social&utm_campaign=quiz_share&utm_content=welder` |
-| X post | `https://tradelift.is-a.dev/quiz.html?utm_source=x&utm_medium=social&utm_campaign=quiz_share&utm_content=hvac` |
-| Threads post | `https://tradelift.is-a.dev/quiz.html?utm_source=threads&utm_medium=social&utm_campaign=quiz_share&utm_content=plumber` |
-| Snapchat | `https://tradelift.is-a.dev/quiz.html?utm_source=snapchat&utm_medium=social&utm_campaign=quiz_share&utm_content=electrician` |
+| Instagram post | `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/quiz.html?utm_source=instagram&utm_medium=social&utm_campaign=quiz_share&utm_content=electrician` |
+| TikTok video | `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/quiz.html?utm_source=tiktok&utm_medium=social&utm_campaign=quiz_share&utm_content=welder` |
+| X post | `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/quiz.html?utm_source=x&utm_medium=social&utm_campaign=quiz_share&utm_content=hvac` |
+| Threads post | `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/quiz.html?utm_source=threads&utm_medium=social&utm_campaign=quiz_share&utm_content=plumber` |
+| Snapchat | `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/quiz.html?utm_source=snapchat&utm_medium=social&utm_campaign=quiz_share&utm_content=electrician` |
 
 ### utm_term (optional, for A/B testing captions)
 Add `&utm_term={caption_variant}` when testing different caption styles. Example: `&utm_term=emoji_heavy` vs `&utm_term=clean`.
@@ -160,4 +160,4 @@ node scripts/generate-og-cards.js
 
 Slug = lowercase trade name with spaces → hyphens (e.g. `HVAC Technician` → `og-hvac-technician.png`).
 
-Live URLs are `https://tradelift.is-a.dev/img/og-<slug>.png`. To wire a post, set its `og:image` meta to the matching trade card (currently wired: `blog/is-welding-a-good-career.html` → og-welder, `blog/how-to-become-an-electrician.html` → og-electrician).
+Live URLs are `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/img/og-<slug>.png`. To wire a post, set its `og:image` meta to the matching trade card (currently wired: `blog/is-welding-a-good-career.html` → og-welder, `blog/how-to-become-an-electrician.html` → og-electrician).

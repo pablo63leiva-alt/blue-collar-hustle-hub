@@ -4,7 +4,7 @@
 
 ## Status: 🟢 QA-COMPLETE + READY FOR PRODUCTION — pushing to `pages` now
 
-Live site: https://tradelift.is-a.dev/ (pre-wave build until the push below lands; CI auto-deploys on push).
+Live site: https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/ (pre-wave build until the push below lands; CI auto-deploys on push).
 
 ## Milestones
 

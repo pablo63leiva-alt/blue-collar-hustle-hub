@@ -10,7 +10,8 @@
 
 - **Name:** TradeLift (rebranded from "Blue Collar Hustle Hub")
 - **What:** Static multi-page marketing site selling skilled-trade careers to teenagers/young adults
-- **URL (LIVE):** https://tradelift.is-a.dev/ (GitHub Pages, auto-deploy on push to `main` via `.github/workflows/deploy.yml`)
+- **URL (LIVE):** https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/ (GitHub Pages, auto-deploy on push to `main` via `.github/workflows/deploy.yml`)
+- **DOMAIN STATUS (2026-09-11):** `tradelift.is-a.dev` was NEVER registered — the is-a.dev PR (#51656) was DENIED (root subdomains must be software-development related; site is a career/education site; also flagged AI-generated). Retrying risks a ban. Site is canonical on the github.io URL. Path to branded URL = buy a real domain (e.g. tradelift.dev) and re-add CNAME.
 - **Tech:** Vanilla HTML/CSS/JS. No framework, no build step.
 - **Theme:** Dark industrial, orange/yellow accents, mobile-first responsive.
 - **Sales angles:** Avoid student debt, high pay ($60K+), job security (750K open trade positions).
@@ -40,7 +41,7 @@
 - `js/quiz.js` — quiz engine (10 Qs, weighted scoring, all 12 trades reachable, share/retake, email opt-in funnel)
 - `scripts/generate-sitemap.js` — regenerates sitemap.xml (13 URLs) on deploy
 - `sitemap.xml` — 13 URLs, populated lastmod
-- `CNAME` = `tradelift.is-a.dev`
+- `CNAME` — REMOVED 2026-09-11 (tradelift.is-a.dev denied by is-a.dev; site canonical on github.io URL; re-add when a real domain is bought)
 - `docs/monetization.md` — revenue strategy playbook
 - `docs/conversion-funnel.md` — visitor journey → email → revenue playbook (Fury)
 - `docs/SESSION-MEMORY.md` — THIS FILE (master memory)
@@ -173,7 +174,7 @@
 - **DECIDED (2026-09-11, Vision):** KEEP `widget/quiz.html` as-is (canonical already → quiz.html); either rebuild as an embeddable iFrame card for schools/counselors (future lane) or sunset it during the next SEO pass.
 - [ ] Content calendar ≥2 posts/month (Hawkeye).
 - [ ] Meta retargeting pixel (Fury, Phase 2).
-- [ ] Get site indexed: Google Search Console verification once deployed (user action or via DNS TXT from is-a.dev provider).
+- [ ] Get site indexed: Google Search Console verification for the github.io domain (can add a DNS TXT via github.io owner verification or HTML tag once deployed).
 
 ---
 

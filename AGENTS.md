@@ -1,7 +1,9 @@
 # TradeLift — Agent Instructions
 
 ## What This Is
-A static multi-page website promoting skilled-trade careers ("TradeLift"). Dark industrial theme (orange/yellow accents), mobile-first responsive. No framework, no build step — vanilla HTML/CSS/JS. Live at https://tradelift.is-a.dev/ (GitHub Pages, auto-deploy via `.github/workflows/deploy.yml`).
+A static multi-page website promoting skilled-trade careers ("TradeLift"). Dark industrial theme (orange/yellow accents), mobile-first responsive. No framework, no build step — vanilla HTML/CSS/JS. Live at https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/ (GitHub Pages, auto-deploy via `.github/workflows/deploy.yml`).
+
+**DOMAIN NOTE:** `tradelift.is-a.dev` was denied by is-a.dev (not software-dev related; flagged AI-generated) — it is NOT registered. Canonicals/sitemap/og all use the github.io base. Real-domain purchase is the only path to a branded URL (then re-add CNAME).
 
 ## Pages
 - `index.html` — Homepage (hero, stats, featured trades, blog teaser, newsletter, footer)
@@ -54,6 +56,6 @@ Teenagers / young adults considering trade careers (electrician, welder, plumber
 | Lang | Reserve / share images |
 
 ## Session Guidance
-- Live production repo: `tradelift.is-a.dev` → push to the `pages` remote (blue-collar-hustle-hub), **NOT** the fork (`origin` = dev copy).
+- Live production repo: `https://pablo63leiva-alt.github.io/blue-collar-hustle-hub` → push to the `pages` remote (blue-collar-hustle-hub), **NOT** the fork (`origin` = dev copy).
 - **DEPLOY NOTE:** Deploy unblocked 2026-09-11 via `gh auth login --web` (OAuth token, scopes `gist`/`read:org`/`repo`, in `~/.config/gh/hosts.yml`, wired with `gh auth setup-git`). env `GITHUB_TOKEN` is still metadata-only — use `env -u GITHUB_TOKEN gh ...` for API calls. Editing `.github/workflows/**` later needs `workflow` scope.
 - Commit only when the user asks, or when the full-autonomy grant covers it (PM-approved, double-reviewed production deploys).
