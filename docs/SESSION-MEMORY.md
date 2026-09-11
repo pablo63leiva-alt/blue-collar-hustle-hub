@@ -1,6 +1,6 @@
 # TradeLift — Master Project Memory & Session Record
 
-**Snapshot timestamp:** Thursday, September 10, 2026 — 7:15 PM EDT (America/New_York)
+**Snapshot timestamp:** Friday, September 11, 2026 (Content Wave 3 + deploy unblock)
 **Owner:** Pablo (user) + Jarvis (PM/AI)
 **Mission:** Grow TradeLift traffic now; generate $50,000 revenue (~103 days, deadline ≈ December 22, 2026).
 
@@ -16,14 +16,15 @@
 - **Sales angles:** Avoid student debt, high pay ($60K+), job security (750K open trade positions).
 - **Repository (this dir):** `/workspaces/https-github.com-github-codespaces-blank`
 
-### Pages (11 total)
+### Pages (12 total)
 | File | Purpose |
 |---|---|
 | `index.html` | Homepage — hero, stats, featured trades, blog teaser, newsletter, footer |
 | `trades.html` | 12 trade careers with filters (All/Construction/Automotive/Industrial/Skilled Craft) |
 | `getting-started.html` | 5-step career roadmap, apprenticeships, certifications, tools, interview tips |
 | `resources.html` | Tools, certifications, YouTube channels, books, websites |
-| `blog.html` | Blog index — lists 4 posts |
+| `blog.html` | Blog index — lists 6 posts |
+| `tools.html` | Trade Tools Guide — 12 starter kits (tools, gear, and prep) |
 | `blog/how-to-become-an-electrician.html` | SEO post #1 |
 | `blog/trade-school-vs-college.html` | SEO post #2 |
 | `blog/best-trades-for-16-year-olds.html` | SEO post #3 |
@@ -37,8 +38,8 @@
 - `blog/blog-style.css` — blog styles (isolated)
 - `js/main.js` — nav toggle, trade filters, newsletter + exit-modal lead capture (Formspree w/ mailto fallback), OneSignal guard
 - `js/quiz.js` — quiz engine (10 Qs, weighted scoring, all 12 trades reachable, share/retake, email opt-in funnel)
-- `scripts/generate-sitemap.js` — regenerates sitemap.xml (10 URLs) on deploy
-- `sitemap.xml` — 10 URLs, populated lastmod
+- `scripts/generate-sitemap.js` — regenerates sitemap.xml (13 URLs) on deploy
+- `sitemap.xml` — 13 URLs, populated lastmod
 - `CNAME` = `tradelift.is-a.dev`
 - `docs/monetization.md` — revenue strategy playbook
 - `docs/conversion-funnel.md` — visitor journey → email → revenue playbook (Fury)
@@ -83,6 +84,8 @@
 10. **Save project/memory/instructions** — THIS FILE is the canonical record; update at end of every session. User explicitly requested a full save at 12:19 PM on 2026-09-10.
 11. Subagent names come from the MCU (mapping in §2).
 12. Live time in **EST/EDT**: `TZ=America/New_York date`.
+13. **HARD DEADLINE (user-set 2026-09-11):** ENTIRE WEBSITE done \*\*by September 13, 2026\*\* (or before). Speed matters; keep quality.
+14. **Self-service + notifications (user-set 2026-09-11):** Pablo gave FULL autonomy incl. opening browser sessions and doing account-level work himself (Formspree, Google Search Console, GitHub) using Pablo's Gmail. Notify Pablo on his phone ONLY when genuinely needed. Store any credentials OUTSIDE the repo (chmod 600, e.g. ~/.config/tradelift/), never log/echo secrets, never commit them.
 
 ---
 
@@ -122,21 +125,29 @@
 - Funnel: label a11y, honeypot, validation, mailto fallback (placeholder), real POST w/ HTTP-status handling, double-submit blocked (2 verified paths), skip/retake resets, success card, capture beacon (event + localStorage).
 - Share cards: preview = downloaded PNG (or scaled fallback), download disabled-during-gen, failure feedback + SVG new-tab manual save, zero leak, deterministic fonts, escaped interpolation, no listener accumulation (3 sequential downloads = exactly 3), filename per-trade slug.
 
+### CONTENT WAVE 3 + DEPLOY UNBLOCK (2026-09-11)
+- **Hawkeye:** 2 SEO posts — `blog/electrician-apprentice-salary.html` ("electrician apprentice salary" long-tail) + `blog/highest-paying-jobs-without-a-degree.html` ("highest paying jobs without a degree"). ✅
+- **Fury/Stark:** `tools.html` — Trade Tools Guide, 12 starter kits, 72 Amazon affiliate links (`tag=tradelift-20`) → affiliate revenue pillar. ✅
+- **Lang:** 12 per-trade OG share cards (`scripts/generate-og-cards.js` + `img/og-<slug>.png`, 1200×630, idempotent). Wired 3 posts → trade cards. ✅
+- **Vision:** Tools nav/footer link on all pages (+ footer Blog link for parity), resources CTA card, sitemap → 13 URLs, blog.html 6 cards + BlogPosting JSON-LD. ✅
+- **Rogers Pass 1:** 0 critical / 3 major (FAQ-schema verbatim parity; 2 pre-existing title>60/desc>160 on how-to + trade-school) / 4 minor / ~5 info. **Romanoff Pass 2:** 1 major (electrician salary parity), 7 minor, 2 info. **Shuri** applied ALL (consolidated list): salary reconciled to $60K-$80K band, year-4 range unified, "4-5 year" normalized site-wide, CM "Experience + promotions", JSON-LD images → trade cards, FAQ visible↔schema verbatim ×6 posts, titles ≤60/desc ≤160 + one canonical headline per post everywhere, footer Blog links, radiation-therapist fix, tools.html WebPage JSON-LD + CTA demote + placeholder comment removed. ✅
+- **PM (Jarvis):** final re-verify green — html.parser clean 16/16, JSON-LD 0 errors, 0 dup IDs, internal links resolve, FAQ verbatim, JS `node --check` ×3, CSS braces 206/63/48, sitemap idempotent ×2 (13 URLs). **Deploy unblocked** via gh device flow (repo scope). Committed + pushed `pages` (production) + `origin` (dev).
+
 ---
 
 ## 5. Deploy Playbook (production)
 
-1. From repo root: `node scripts/generate-sitemap.js` (10 URLs) — also runs automatically in CI.
+1. From repo root: `node scripts/generate-sitemap.js` (13 URLs) — also runs automatically in CI.
 2. `git status` — confirm only intended files staged. NEVER commit secrets.
 3. Commit with concise message matching repo style (e.g., `feat: ...`).
 4. Push to **`pages`**: `git push pages main` → GitHub Actions auto-deploys (npm ci → sitemap → pa11y-ci → linkinator → configure-pages → upload → deploy).
 5. Verify HTTP 200 on: `/`, `/trades.html`, `/getting-started.html`, `/resources.html`, `/blog.html`, `/blog/how-to-become-an-electrician.html`, `/blog/trade-school-vs-college.html`, `/quiz.html`, `/css/style.css`, `/js/main.js`, `/img/hero-trades.svg`.
 6. Update `PROGRESS.md` + this memory file; commit to origin as the dev-copy record.
 
-### DEPLOY BLOCKER (status: OPEN)
-- Environment GITHUB_TOKEN is Codespaces auto-token with `metadata=read` only — cannot push.
-- gh CLI authenticated as pablo63leiva-alt using same limited token; no stored PAT; no .git-credentials.
-- Unblock options offered to user: (1) paste classic PAT (repo+workflow) in chat — store ONLY locally as pages-remote credential (chmod 600, never in repo); (2) user pushes manually; (3) grant codespace `repo` scope in settings.
+### DEPLOY BLOCKER (status: RESOLVED 2026-09-11)
+- RESOLVED via `gh auth login --web` device flow (code entered by Pablo) → OAuth token stored in `~/.config/gh/hosts.yml` (chmod 600). Scopes: `gist`, `read:org`, `repo`. `gh auth setup-git` wired the git credential helper so pushes use this token.
+- **env `GITHUB_TOKEN` is STILL the codespaces metadata-only token** — for gh API calls use `env -u GITHUB_TOKEN -u GITHUB_CODESPACE_TOKEN gh ...`. Git pushes use the stored host token automatically.
+- **Workflow scope NOT present** → editing `.github/workflows/**` in a future commit will need a PAT/`workflow`-scoped token (or modify via API only).
 
 ---
 
@@ -153,11 +164,13 @@
 
 ### Action items / open decisions
 - [ ] **CRITICAL:** Unblock `pages` push (PAT / codespace scope) — Gate to every deploy.
+- [ ] **DONE (2026-09-11, Lang):** Quiz share-images per trade — 12 OG cards built (`scripts/generate-og-cards.js`, `img/og-<slug>.png`, idempotent, in-script PASS assert). Wired `blog/is-welding-a-good-career.html` + `blog/how-to-become-an-electrician.html` og:image. Docs: `docs/social-sharing.md` "OG cards" section.
 - [ ] User: create Formspree account → paste real form IDs in js/main.js NEWSLETTER_CONFIG + js/quiz.js QUIZ_EMAIL_CONFIG (currently `https://formspree.io/f/YOURID`).
 - [ ] Fury funnel wave: run a review pass (Rogers) before bundling into the next deploy commit.
 - [ ] Affiliate infrastructure pages (Hawkeye/Fury).
 - [ ] Quiz share-images per trade (Lang: 12 OG cards, result-tagged URLs `quiz.html?r=trade`).
 - [ ] Productionize widget embed for school/counselor backlinks (Stark) or remove (SEO).
+- **DECIDED (2026-09-11, Vision):** KEEP `widget/quiz.html` as-is (canonical already → quiz.html); either rebuild as an embeddable iFrame card for schools/counselors (future lane) or sunset it during the next SEO pass.
 - [ ] Content calendar ≥2 posts/month (Hawkeye).
 - [ ] Meta retargeting pixel (Fury, Phase 2).
 - [ ] Get site indexed: Google Search Console verification once deployed (user action or via DNS TXT from is-a.dev provider).
@@ -169,7 +182,7 @@
 - HTML: python3 html.parser well-formedness per file.
 - JS: `node --check js/main.js js/quiz.js`
 - CSS brace balance: css/style.css, css/quiz.css, blog/blog-style.css
-- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 10 URLs)
+- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 13 URLs)
 - Live deploy: push to `pages`; CI runs pa11y-ci + linkinator automatically.
 - Time: `TZ=America/New_York date`
 

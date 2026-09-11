@@ -8,7 +8,8 @@ A static multi-page website promoting skilled-trade careers ("TradeLift"). Dark 
 - `trades.html` — 12 trade careers with filter buttons (All/Construction/Automotive/Industrial/Skilled Craft)
 - `getting-started.html` — 5-step career roadmap, apprenticeships, certifications, tools, interview tips
 - `resources.html` — Tools, certifications, YouTube channels, books, websites
-- `blog.html` + `blog/` — Blog index + 4 SEO posts
+- `blog.html` + `blog/` — Blog index + 6 SEO posts
+- `tools.html` — Trade Tools Guide, 12 starter kits (tools, gear, and prep)
 - `quiz.html` — "Which Trade Is For You?" 10-question quiz + email capture funnel
 - `badge.html` — share badge; `widget/quiz.html` — old embed (canonical → quiz.html)
 
@@ -28,7 +29,7 @@ Teenagers / young adults considering trade careers (electrician, welder, plumber
 - HTML well-formedness: `python3` with `html.parser` (pattern used previously)
 - JS syntax: `node --check js/main.js js/quiz.js`
 - CSS brace balance: count `{` vs `}`
-- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 10 URLs)
+- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 13 URLs)
 
 ## WORKFLOW RULES (ALWAYS FOLLOW)
 1. **Always use subagents (squad) for reviews** — never review only with my own tools.
@@ -54,5 +55,5 @@ Teenagers / young adults considering trade careers (electrician, welder, plumber
 
 ## Session Guidance
 - Live production repo: `tradelift.is-a.dev` → push to the `pages` remote (blue-collar-hustle-hub), **NOT** the fork (`origin` = dev copy).
-- **DEPLOY BLOCKER (open):** the Codespaces GITHUB_TOKEN is `metadata=read`-only; pushing requires the user's PAT (`repo`+`workflow`) configured as a local credential, or codespace `repo` scope, or a manual push. Do not invent or persist a PAT value.
+- **DEPLOY NOTE:** Deploy unblocked 2026-09-11 via `gh auth login --web` (OAuth token, scopes `gist`/`read:org`/`repo`, in `~/.config/gh/hosts.yml`, wired with `gh auth setup-git`). env `GITHUB_TOKEN` is still metadata-only — use `env -u GITHUB_TOKEN gh ...` for API calls. Editing `.github/workflows/**` later needs `workflow` scope.
 - Commit only when the user asks, or when the full-autonomy grant covers it (PM-approved, double-reviewed production deploys).

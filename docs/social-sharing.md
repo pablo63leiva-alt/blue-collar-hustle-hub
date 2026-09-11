@@ -124,3 +124,40 @@ These UTM parameters will automatically appear in your analytics dashboard under
 - [ ] Post at a peak time from the schedule above
 - [ ] Reply to every comment in the first hour (boosts algorithm reach)
 - [ ] Cross-post the card to 1-2 other platforms the same day
+
+---
+
+## OG Cards (per-trade social share images)
+
+12 per-trade 1200x630 PNG share cards matching the in-page quiz result card visual language (dark industrial gradient, orange `#ff6b00` / yellow `#ffc107` accents, salary pill, `Your Trade Match` eyebrow, 180x180 icon tile).
+
+### How to regenerate
+
+Requires the existing Playwright install (browser binaries cached under `~/.cache/ms-playwright`). No web server needed — each card is rendered from a self-contained HTML string. Idempotent (same PNG bytes every run).
+
+```
+node scripts/generate-og-cards.js
+```
+
+`scripts/generate-og-cards.js` loads the `TRADES` array verbatim from `js/quiz.js`, renders each trade at `1200x630` (`deviceScaleFactor:1`), asserts the trade name + salary appear in the rendered DOM (per-trade PASS table printed), and writes `img/og-<slug>.png`.
+
+### Output files (12)
+
+| Trade | File |
+|-------|------|
+| Electrician | `img/og-electrician.png` |
+| Plumber | `img/og-plumber.png` |
+| Welder | `img/og-welder.png` |
+| HVAC Technician | `img/og-hvac-technician.png` |
+| Automotive Mechanic | `img/og-automotive-mechanic.png` |
+| Carpenter | `img/og-carpenter.png` |
+| Ironworker | `img/og-ironworker.png` |
+| Pipefitter | `img/og-pipefitter.png` |
+| Diesel Mechanic | `img/og-diesel-mechanic.png` |
+| Mason | `img/og-mason.png` |
+| Roofer | `img/og-roofer.png` |
+| Construction Manager | `img/og-construction-manager.png` |
+
+Slug = lowercase trade name with spaces → hyphens (e.g. `HVAC Technician` → `og-hvac-technician.png`).
+
+Live URLs are `https://tradelift.is-a.dev/img/og-<slug>.png`. To wire a post, set its `og:image` meta to the matching trade card (currently wired: `blog/is-welding-a-good-career.html` → og-welder, `blog/how-to-become-an-electrician.html` → og-electrician).
