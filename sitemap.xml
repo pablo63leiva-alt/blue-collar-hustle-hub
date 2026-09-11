@@ -102,4 +102,16 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/blog/apprentice-wages-by-year.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/blog/hvac-apprenticeship-requirements.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
