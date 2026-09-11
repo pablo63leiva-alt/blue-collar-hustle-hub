@@ -1,13 +1,22 @@
 # TradeLift — Progress Tracker
 
-**Last updated:** Friday, September 11, 2026 (8 AM EDT) — WAVE 4 SHIPPED, hard deadline Sun Sep 13
+**Last updated:** Friday, September 11, 2026 (8:30 AM EDT) — WAVE 5 SHIPPED, hard deadline Sun Sep 13
 
-## Status: 🟢 PRODUCTION LIVE + WAVE 4 DEPLOYED — all remotes synced @ `4ba3e1b`
+## Status: 🟢 PRODUCTION LIVE + WAVE 5 DEPLOYED — all remotes synced @ `303c52b`
 
 Live site: https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/ (CI auto-deploys on push to `pages/main`).
-Verified 200 OK: /, /blog.html, /quiz.html, /tools.html, /blog/is-trade-school-worth-it.html. Sitemap 14 URLs, idempotent.
+Verified 200 OK: 10 blog posts incl. HVAC/plumber salary + electrician tools affiliate guide. Sitemap 17 URLs, idempotent. Auth deploy fix documented (see AGENTS.md).
 
 ## Milestones
+
+### Done & Shipped — WAVE 5 (committed `303c52b`, deployed to production, remotes synced)
+- [x] `blog/hvac-apprentice-salary.html` — "HVAC apprentice salary" year-by-year (targets long-tail)
+- [x] `blog/plumber-apprentice-salary.html` — "plumber apprentice salary" year-by-year
+- [x] `blog/best-electrician-tools-for-beginners.html` — FIRST affiliate post, 22 amazon `tag=tradelift-20` links + FTC disclosure
+- [x] blog.html: 10 cards + 10 BlogPosting JSON-LD; sitemap 17 URLs, idempotent ×2
+- [x] Rogers Pass 1 + Romanoff Pass 2 (single gate): 1 Critical + 3 Minor + 3 Minor found → all fixed by Shuri (plumber salary parity $56K-$74K, HVAC year-3 $20, plumber year-4 $22-$32, budget math $158-$297, openings 36,700) + funnel wiring (+tools.html links in salary posts)
+- [x] Re-verified: JS ×4 OK, 18 HTML clean/0 dup IDs, 22 affiliate tags, salary bands in-range
+- [x] **AUTH QUIRK FOUND & FIXED:** codespace env `GITHUB_TOKEN` shadows OAuth → plain `git push` 403; documented working push command in AGENTS.md + memory
 
 ### Done & Shipped — WAVE 4 (committed `4ba3e1b`, deployed to production, remotes synced)
 - [x] Blog post: `blog/is-trade-school-worth-it.html` — targets "is trade school worth it"

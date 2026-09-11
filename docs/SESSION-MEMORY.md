@@ -1,6 +1,6 @@
 # TradeLift — Master Project Memory & Session Record
 
-**Snapshot timestamp:** Friday, September 11, 2026, 8 AM EDT (WAVE 4 SHIPPED — site live, hard deadline Sun Sep 13)
+**Snapshot timestamp:** Friday, September 11, 2026, 8:30 AM EDT (WAVE 5 DEPLOYED — 10 posts live, site stable)
 **Owner:** Pablo (user) + Jarvis (PM/AI)
 **Mission:** Grow TradeLift traffic now; generate $50,000 revenue (~102 days, deadline ≈ December 22, 2026).
 
@@ -33,6 +33,9 @@
 | `blog/electrician-apprentice-salary.html` | SEO post #5 |
 | `blog/highest-paying-jobs-without-a-degree.html` | SEO post #6 |
 | `blog/is-trade-school-worth-it.html` | SEO post #7 (wave 4) |
+| `blog/hvac-apprentice-salary.html` | SEO post #8 (wave 5) |
+| `blog/plumber-apprentice-salary.html` | SEO post #9 (wave 5) |
+| `blog/best-electrician-tools-for-beginners.html` | Affiliate post #1 (wave 5) |
 | `quiz.html` | "Which Trade Is For You?" interactive 10-question quiz + email capture funnel |
 | `badge.html` | Social/share badge (no nav; linked from footers) |
 
@@ -42,7 +45,7 @@
 - `blog/blog-style.css` — blog styles (isolated)
 - `js/main.js` — nav toggle, trade filters, newsletter + exit-modal lead capture (Formspree w/ mailto fallback), OneSignal guard
 - `js/quiz.js` — quiz engine (10 Qs, weighted scoring, all 12 trades reachable, share/retake, email opt-in funnel)
-- `scripts/generate-sitemap.js` — regenerates sitemap.xml (13 URLs) on deploy
+- `scripts/generate-sitemap.js` — regenerates sitemap.xml (17 URLs) on deploy
 - `sitemap.xml` — 13 URLs, populated lastmod
 - `CNAME` — REMOVED 2026-09-11 (tradelift.is-a.dev denied by is-a.dev; site canonical on github.io URL; re-add when a real domain is bought)
 - `docs/monetization.md` — revenue strategy playbook
@@ -137,6 +140,14 @@
 - **Rogers Pass 1:** 0 critical / 3 major (FAQ-schema verbatim parity; 2 pre-existing title>60/desc>160 on how-to + trade-school) / 4 minor / ~5 info. **Romanoff Pass 2:** 1 major (electrician salary parity), 7 minor, 2 info. **Shuri** applied ALL (consolidated list): salary reconciled to $60K-$80K band, year-4 range unified, "4-5 year" normalized site-wide, CM "Experience + promotions", JSON-LD images → trade cards, FAQ visible↔schema verbatim ×6 posts, titles ≤60/desc ≤160 + one canonical headline per post everywhere, footer Blog links, radiation-therapist fix, tools.html WebPage JSON-LD + CTA demote + placeholder comment removed. ✅
 - **PM (Jarvis):** final re-verify green — html.parser clean 16/16, JSON-LD 0 errors, 0 dup IDs, internal links resolve, FAQ verbatim, JS `node --check` ×3, CSS braces 206/63/48, sitemap idempotent ×2 (13 URLs). **Deploy unblocked** via gh device flow (repo scope). Committed + pushed `pages` (production) + `origin` (dev).
 
+### CONTENT WAVE 5 — DEPLOYED (`303c52b`) 2026-09-11
+- **Hawkeye:** `blog/hvac-apprentice-salary.html` ("HVAC apprentice salary" year-by-year) + `blog/plumber-apprentice-salary.html` ("plumber apprentice salary"). ✅
+- **Fury:** `blog/best-electrician-tools-for-beginners.html` — first affiliate post, 22 amazon links (`tag=tradelift-20`), FTC disclosure front+back. ✅
+- **blog.html:** now 10 cards + 10 BlogPosting JSON-LD entries. Sitemap → 17 URLs.
+- **Rogers Pass 1:** FAIL gate — 1 Critical (plumber journeyman union row $60K-$80K contradicted site band $55K-$75K), 3 Minor (HVAC year-3 low off $1, plumber year-4 cap off $2, tools budget total $327≠actual $297), 2 Info. **Romanoff Pass 2:** PASS — 0 Crit/Major, 3 Minor (hardcoded sitemap list, lastmod same-date, AGENTS.md stale count) + 2 growth notes.
+- **Shuri:** fixed ALL — plumber rows → $28-$37/$56K-$74K (in band), HVAC year-3 row → $20 start, plumber year-4 → $22-$32 everywhere (table+narrative+FAQ+JSON-LD verbatim), tools budget total → $158-$297 with phases reconciled ($90-$160/$33-$65/$35-$72), HVAC openings 36,400→36,700, funnel wiring (+tools.html links in HVAC/plumber posts), AGENTS.md post count/sitemap count. ✅
+- **PM (Jarvis):** re-verified (JS ×4 OK, 18 HTML clean/0 dup IDs, sitemap idempotent 17 URLs, 22 affiliate tags, plumber band in-range). Committed `303c52b`, deployed to `pages`. **AUTH QUIRK FOUND:** `env GITHUB_TOKEN` shadows OAuth token → 403; fix = `env -u GITHUB_TOKEN -u GITHUB_CODESPACE_TOKEN git -c credential.helper= -c credential.https://github.com.helper='!gh auth git-credential' push <remote> main` (recorded in AGENTS.md). Verified live 200 on all 3 new posts + sitemap 17 URLs. ✅
+
 ### CONTENT WAVE 4 — DEPLOYED (`4ba3e1b`) 2026-09-11
 - **Hawkeye:** `blog/is-trade-school-worth-it.html` — targets "is trade school worth it" long-tail. ✅
 - **Vision:** Full Twitter/X card metadata (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`) added across all posts + pages for richer social sharing. ✅
@@ -149,16 +160,16 @@
 
 ## 5. Deploy Playbook (production)
 
-1. From repo root: `node scripts/generate-sitemap.js` (14 URLs) — also runs automatically in CI.
+1. From repo root: `node scripts/generate-sitemap.js` (17 URLs) — also runs automatically in CI.
 2. `git status` — confirm only intended files staged. NEVER commit secrets.
 3. Commit with concise message matching repo style (e.g., `feat: ...`).
-4. Push to **`pages`**: `git push pages main` → GitHub Actions auto-deploys (npm ci → sitemap → pa11y-ci → linkinator → configure-pages → upload → deploy).
+4. Push to **`pages`**: `env -u GITHUB_TOKEN -u GITHUB_CODESPACE_TOKEN git -c credential.helper= -c credential.https://github.com.helper="!gh auth git-credential" push pages main` → GitHub Actions auto-deploys (npm ci → sitemap → pa11y-ci → linkinator → configure-pages → upload → deploy). (The env+credential dance is REQUIRED — see §Deploy Blocker below; a plain `git push` yields 403.)
 5. Verify HTTP 200 on: `/`, `/trades.html`, `/getting-started.html`, `/resources.html`, `/blog.html`, `/blog/how-to-become-an-electrician.html`, `/blog/trade-school-vs-college.html`, `/quiz.html`, `/css/style.css`, `/js/main.js`, `/img/hero-trades.svg`.
 6. Update `PROGRESS.md` + this memory file; commit to origin as the dev-copy record.
 
 ### DEPLOY BLOCKER (status: RESOLVED 2026-09-11)
 - RESOLVED via `gh auth login --web` device flow (code entered by Pablo) → OAuth token stored in `~/.config/gh/hosts.yml` (chmod 600). Scopes: `gist`, `read:org`, `repo`. `gh auth setup-git` wired the git credential helper so pushes use this token.
-- **env `GITHUB_TOKEN` is STILL the codespaces metadata-only token** — for gh API calls use `env -u GITHUB_TOKEN -u GITHUB_CODESPACE_TOKEN gh ...`. Git pushes use the stored host token automatically.
+- **env `GITHUB_TOKEN` is STILL the codespaces metadata-only token** — for gh API calls use `env -u GITHUB_TOKEN -u GITHUB_CODESPACE_TOKEN gh ...`. Git pushes use the stored host token ONLY if the codespace credential helper + env token are suppressed (see the `git -c credential.helper= -c credential.https://github.com.helper="!gh auth git-credential"` override above).
 - **Workflow scope NOT present** → editing `.github/workflows/**` in a future commit will need a PAT/`workflow`-scoped token (or modify via API only).
 
 ---
