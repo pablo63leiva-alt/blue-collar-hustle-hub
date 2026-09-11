@@ -8,7 +8,7 @@ A static multi-page website promoting skilled-trade careers ("TradeLift"). Dark 
 - `trades.html` — 12 trade careers with filter buttons (All/Construction/Automotive/Industrial/Skilled Craft)
 - `getting-started.html` — 5-step career roadmap, apprenticeships, certifications, tools, interview tips
 - `resources.html` — Tools, certifications, YouTube channels, books, websites
-- `blog.html` + `blog/` — Blog index + 2 SEO posts
+- `blog.html` + `blog/` — Blog index + 4 SEO posts
 - `quiz.html` — "Which Trade Is For You?" 10-question quiz + email capture funnel
 - `badge.html` — share badge; `widget/quiz.html` — old embed (canonical → quiz.html)
 
@@ -28,7 +28,7 @@ Teenagers / young adults considering trade careers (electrician, welder, plumber
 - HTML well-formedness: `python3` with `html.parser` (pattern used previously)
 - JS syntax: `node --check js/main.js js/quiz.js`
 - CSS brace balance: count `{` vs `}`
-- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 8 URLs)
+- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 10 URLs)
 
 ## WORKFLOW RULES (ALWAYS FOLLOW)
 1. **Always use subagents (squad) for reviews** — never review only with my own tools.

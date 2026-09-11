@@ -16,16 +16,18 @@
 - **Sales angles:** Avoid student debt, high pay ($60K+), job security (750K open trade positions).
 - **Repository (this dir):** `/workspaces/https-github.com-github-codespaces-blank`
 
-### Pages (9 total)
+### Pages (11 total)
 | File | Purpose |
 |---|---|
 | `index.html` | Homepage — hero, stats, featured trades, blog teaser, newsletter, footer |
 | `trades.html` | 12 trade careers with filters (All/Construction/Automotive/Industrial/Skilled Craft) |
 | `getting-started.html` | 5-step career roadmap, apprenticeships, certifications, tools, interview tips |
 | `resources.html` | Tools, certifications, YouTube channels, books, websites |
-| `blog.html` | Blog index — lists 2 posts |
+| `blog.html` | Blog index — lists 4 posts |
 | `blog/how-to-become-an-electrician.html` | SEO post #1 |
 | `blog/trade-school-vs-college.html` | SEO post #2 |
+| `blog/best-trades-for-16-year-olds.html` | SEO post #3 |
+| `blog/is-welding-a-good-career.html` | SEO post #4 |
 | `quiz.html` | "Which Trade Is For You?" interactive 10-question quiz + email capture funnel |
 | `badge.html` | Social/share badge (no nav; linked from footers) |
 
@@ -35,8 +37,8 @@
 - `blog/blog-style.css` — blog styles (isolated)
 - `js/main.js` — nav toggle, trade filters, newsletter + exit-modal lead capture (Formspree w/ mailto fallback), OneSignal guard
 - `js/quiz.js` — quiz engine (10 Qs, weighted scoring, all 12 trades reachable, share/retake, email opt-in funnel)
-- `scripts/generate-sitemap.js` — regenerates sitemap.xml (8 URLs) on deploy
-- `sitemap.xml` — 8 URLs, populated lastmod
+- `scripts/generate-sitemap.js` — regenerates sitemap.xml (10 URLs) on deploy
+- `sitemap.xml` — 10 URLs, populated lastmod
 - `CNAME` = `tradelift.is-a.dev`
 - `docs/monetization.md` — revenue strategy playbook
 - `docs/conversion-funnel.md` — visitor journey → email → revenue playbook (Fury)
@@ -124,7 +126,7 @@
 
 ## 5. Deploy Playbook (production)
 
-1. From repo root: `node scripts/generate-sitemap.js` (8 URLs) — also runs automatically in CI.
+1. From repo root: `node scripts/generate-sitemap.js` (10 URLs) — also runs automatically in CI.
 2. `git status` — confirm only intended files staged. NEVER commit secrets.
 3. Commit with concise message matching repo style (e.g., `feat: ...`).
 4. Push to **`pages`**: `git push pages main` → GitHub Actions auto-deploys (npm ci → sitemap → pa11y-ci → linkinator → configure-pages → upload → deploy).
@@ -167,7 +169,7 @@
 - HTML: python3 html.parser well-formedness per file.
 - JS: `node --check js/main.js js/quiz.js`
 - CSS brace balance: css/style.css, css/quiz.css, blog/blog-style.css
-- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 8 URLs)
+- Sitemap: `node scripts/generate-sitemap.js` (run twice → identical, 10 URLs)
 - Live deploy: push to `pages`; CI runs pa11y-ci + linkinator automatically.
 - Time: `TZ=America/New_York date`
 

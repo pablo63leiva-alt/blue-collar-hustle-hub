@@ -7,7 +7,7 @@ var execSync = require('child_process').execSync;
 var SITE_URL = 'https://tradelift.is-a.dev';
 var ROOT = path.resolve(__dirname, '..');
 var mainPages = ['index.html', 'trades.html', 'getting-started.html', 'resources.html', 'blog.html', 'quiz.html'];
-var blogPosts = ['blog/how-to-become-an-electrician.html', 'blog/trade-school-vs-college.html'];
+var blogPosts = ['blog/how-to-become-an-electrician.html', 'blog/trade-school-vs-college.html', 'blog/best-trades-for-16-year-olds.html', 'blog/is-welding-a-good-career.html'];
 var pages = mainPages.filter(function (f) {
   try { fs.statSync(path.join(ROOT, f)); return true; } catch (_) { return false; }
 });
