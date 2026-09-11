@@ -645,9 +645,9 @@ body.nav-open .hamburger::after {
 }
 
 .filter-btn.active {
-  background-color: var(--accent-orange);
+  background-color: var(--accent-orange-deep);
   color: var(--text-white);
-  border-color: var(--accent-orange);
+  border-color: var(--accent-orange-deep);
 }
 
 /* ============================================
