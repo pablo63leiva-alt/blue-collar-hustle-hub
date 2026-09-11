@@ -19,6 +19,8 @@
   --border-color: #2a2a2a;
   --accent-orange: #ff6b00;
   --accent-orange-hover: #e05e00;
+  --accent-orange-deep: #c75300;
+  --accent-orange-deeper: #b04a00;
   --accent-yellow: #ffc107;
   --text-white: #ffffff;
   --text-body: #b0b0b0;
@@ -139,14 +141,14 @@ input {
 }
 
 .btn-primary {
-  background-color: var(--accent-orange);
+  background-color: var(--accent-orange-deep);
   color: var(--text-white);
-  border-color: var(--accent-orange);
+  border-color: var(--accent-orange-deep);
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-orange-hover);
-  border-color: var(--accent-orange-hover);
+  background-color: var(--accent-orange-deeper);
+  border-color: var(--accent-orange-deeper);
   color: var(--text-white);
 }
 

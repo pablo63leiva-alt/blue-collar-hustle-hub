@@ -148,6 +148,10 @@
   color: var(--text-white);
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .quiz-option.selected .quiz-option-letter {
   background-color: var(--accent-orange);
   color: var(--text-white);
