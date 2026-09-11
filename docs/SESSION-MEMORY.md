@@ -17,7 +17,7 @@
 - **Sales angles:** Avoid student debt, high pay ($60K+), job security (750K open trade positions).
 - **Repository (this dir):** `/workspaces/https-github.com-github-codespaces-blank`
 
-### Pages (15 total — 8 main + 7 blog posts)
+### Pages (20 total — 8 main + 12 blog posts)
 | File | Purpose |
 |---|---|
 | `index.html` | Homepage — hero, stats, featured trades, blog teaser, newsletter, footer |
@@ -36,6 +36,8 @@
 | `blog/hvac-apprentice-salary.html` | SEO post #8 (wave 5) |
 | `blog/plumber-apprentice-salary.html` | SEO post #9 (wave 5) |
 | `blog/best-electrician-tools-for-beginners.html` | Affiliate post #1 (wave 5) |
+| `blog/apprentice-wages-by-year.html` | SEO post #10 (wave 6) |
+| `blog/hvac-apprenticeship-requirements.html` | SEO post #11 (wave 6) |
 | `quiz.html` | "Which Trade Is For You?" interactive 10-question quiz + email capture funnel |
 | `badge.html` | Social/share badge (no nav; linked from footers) |
 
@@ -140,7 +142,11 @@
 - **Rogers Pass 1:** 0 critical / 3 major (FAQ-schema verbatim parity; 2 pre-existing title>60/desc>160 on how-to + trade-school) / 4 minor / ~5 info. **Romanoff Pass 2:** 1 major (electrician salary parity), 7 minor, 2 info. **Shuri** applied ALL (consolidated list): salary reconciled to $60K-$80K band, year-4 range unified, "4-5 year" normalized site-wide, CM "Experience + promotions", JSON-LD images → trade cards, FAQ visible↔schema verbatim ×6 posts, titles ≤60/desc ≤160 + one canonical headline per post everywhere, footer Blog links, radiation-therapist fix, tools.html WebPage JSON-LD + CTA demote + placeholder comment removed. ✅
 - **PM (Jarvis):** final re-verify green — html.parser clean 16/16, JSON-LD 0 errors, 0 dup IDs, internal links resolve, FAQ verbatim, JS `node --check` ×3, CSS braces 206/63/48, sitemap idempotent ×2 (13 URLs). **Deploy unblocked** via gh device flow (repo scope). Committed + pushed `pages` (production) + `origin` (dev).
 
-### CONTENT WAVE 5 — DEPLOYED (`303c52b`) 2026-09-11
+### CONTENT WAVE 6 — DEPLOYED (`ab3325f`) 2026-09-11
+- **Hawkeye:** `blog/apprentice-wages-by-year.html` (cross-trade year-by-year table, 6 trades, targets "apprentice wages by year") + `blog/hvac-apprenticeship-requirements.html` (2026 checklist, EPA 608, union vs non-union, targets "HVAC apprenticeship requirements"). ✅
+- **blog.html:** 2 new cards + 2 BlogPosting entries. Sitemap → 19 URLs.
+- **Verification:** JS ×3 OK, 20 HTML clean/0 dup IDs, titles ≤60, FAQ JSON-LD ↔ visible verbatim parity (class `trade-faq`), salary data consistent with site (BLS $61,590/$59,880/$57,310/$100,080), internal links resolve.
+- **PM (Jarvis):** Committed `ab3325f`, deployed to `pages`, verified 200 OK on both posts + sitemap 19 URLs. ✅
 - **Hawkeye:** `blog/hvac-apprentice-salary.html` ("HVAC apprentice salary" year-by-year) + `blog/plumber-apprentice-salary.html` ("plumber apprentice salary"). ✅
 - **Fury:** `blog/best-electrician-tools-for-beginners.html` — first affiliate post, 22 amazon links (`tag=tradelift-20`), FTC disclosure front+back. ✅
 - **blog.html:** now 10 cards + 10 BlogPosting JSON-LD entries. Sitemap → 17 URLs.
@@ -160,7 +166,7 @@
 
 ## 5. Deploy Playbook (production)
 
-1. From repo root: `node scripts/generate-sitemap.js` (17 URLs) — also runs automatically in CI.
+1. From repo root: `node scripts/generate-sitemap.js` (19 URLs) — also runs automatically in CI.
 2. `git status` — confirm only intended files staged. NEVER commit secrets.
 3. Commit with concise message matching repo style (e.g., `feat: ...`).
 4. Push to **`pages`**: `env -u GITHUB_TOKEN -u GITHUB_CODESPACE_TOKEN git -c credential.helper= -c credential.https://github.com.helper="!gh auth git-credential" push pages main` → GitHub Actions auto-deploys (npm ci → sitemap → pa11y-ci → linkinator → configure-pages → upload → deploy). (The env+credential dance is REQUIRED — see §Deploy Blocker below; a plain `git push` yields 403.)

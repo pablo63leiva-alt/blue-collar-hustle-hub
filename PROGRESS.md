@@ -1,13 +1,20 @@
 # TradeLift — Progress Tracker
 
-**Last updated:** Friday, September 11, 2026 (8:30 AM EDT) — WAVE 5 SHIPPED, hard deadline Sun Sep 13
+**Last updated:** Friday, September 11, 2026 (2:30 PM EDT) — WAVE 6 SHIPPED, hard deadline Sun Sep 13
 
-## Status: 🟢 PRODUCTION LIVE + WAVE 5 DEPLOYED — all remotes synced @ `303c52b`
+## Status: 🟢 PRODUCTION LIVE + WAVE 6 DEPLOYED — all remotes synced @ `ab3325f`
 
 Live site: https://pablo63leiva-alt.github.io/blue-collar-hustle-hub/ (CI auto-deploys on push to `pages/main`).
 Verified 200 OK: 10 blog posts incl. HVAC/plumber salary + electrician tools affiliate guide. Sitemap 17 URLs, idempotent. Auth deploy fix documented (see AGENTS.md).
 
 ## Milestones
+
+### Done & Shipped — WAVE 6 (committed `ab3325f`, deployed to production, remotes synced)
+- [x] `blog/apprentice-wages-by-year.html` — cross-trade year-by-year table (electrician, plumber, HVAC, welder, carpenter, elevator installer), targets "apprentice wages by year"
+- [x] `blog/hvac-apprenticeship-requirements.html` — 2026 checklist, EPA 608, union vs non-union, 5-step apply process, targets "HVAC apprenticeship requirements"
+- [x] blog.html: 2 new cards + 2 BlogPosting JSON-LD entries (now 12 total posts)
+- [x] Sitemap: 19 URLs (7 main + 12 posts), idempotent ×2
+- [x] Re-verified: JS ×3 OK, 20 HTML clean/0 dup IDs, titles ≤60, FAQ parity, salary data site-consistent, internal links resolve
 
 ### Done & Shipped — WAVE 5 (committed `303c52b`, deployed to production, remotes synced)
 - [x] `blog/hvac-apprentice-salary.html` — "HVAC apprentice salary" year-by-year (targets long-tail)
