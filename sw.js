@@ -1,17 +1,16 @@
-const CACHE_NAME = 'tradelift-shell-v1';
+const CACHE_NAME = 'tradelift-shell-v2';
 
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/trades.html',
-  '/getting-started.html',
-  '/resources.html',
-  '/css/style.css',
-  '/js/main.js',
-  '/img/hero-trades.svg',
-  '/img/og-image.png',
-  '/img/logo.png',
-  '/CNAME'
+  './',
+  './index.html',
+  './trades.html',
+  './getting-started.html',
+  './resources.html',
+  './css/style.css',
+  './js/main.js',
+  './img/hero-trades.svg',
+  './img/og-image.png',
+  './img/logo.png'
 ];
 
 self.addEventListener('install', function (event) {

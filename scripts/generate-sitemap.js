@@ -7,7 +7,7 @@ var execSync = require('child_process').execSync;
 var SITE_URL = 'https://pablo63leiva-alt.github.io/blue-collar-hustle-hub';
 var ROOT = path.resolve(__dirname, '..');
 var mainPages = ['index.html', 'trades.html', 'getting-started.html', 'resources.html', 'blog.html', 'tools.html', 'quiz.html'];
-var blogPosts = ['blog/how-to-become-an-electrician.html', 'blog/trade-school-vs-college.html', 'blog/best-trades-for-16-year-olds.html', 'blog/is-welding-a-good-career.html', 'blog/electrician-apprentice-salary.html', 'blog/highest-paying-jobs-without-a-degree.html'];
+var blogPosts = ['blog/how-to-become-an-electrician.html', 'blog/trade-school-vs-college.html', 'blog/best-trades-for-16-year-olds.html', 'blog/is-welding-a-good-career.html', 'blog/is-trade-school-worth-it.html', 'blog/electrician-apprentice-salary.html', 'blog/highest-paying-jobs-without-a-degree.html'];
 var pages = mainPages.filter(function (f) {
   try { fs.statSync(path.join(ROOT, f)); return true; } catch (_) { return false; }
 });
